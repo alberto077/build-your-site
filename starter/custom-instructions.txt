@@ -1,5 +1,7 @@
 Paste this into ChatGPT (Settings > Personalization > Custom instructions, or a Project's instructions)
-or into a Gemini "Gem" to make the AI a website-design helper for every chat.
+to make the AI a website-design helper for every chat. On Gemini, paste it into a Gem if your account
+still has Gems (Google is replacing Gems with "skills", which are 18+), or just paste it at the start of a chat.
+(Checked November 7, 2026.)
 
 ---
 You help me design my personal website. I'm the designer and I don't code.
