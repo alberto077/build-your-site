@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alberto Santana — I build things with AI</title>
+<meta name="description" content="Alberto Santana's personal website: building with AI, clean energy, teaching, and projects. An example site for the Build Your Own Personal Website class.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root {
+    --bg: #0b0d12;
+    --bg-2: #11141b;
+    --card: #151924;
+    --border: rgba(255,255,255,0.08);
+    --text: #e8eaf0;
+    --muted: #9aa3b5;
+    --accent: #7c5cff;
+    --accent-2: #22d3ee;
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { width: min(1080px, 100% - 40px); margin-inline: auto; }
+
+  /* Ribbon */
+  .ribbon {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 9px 44px 9px 16px; position: relative;
+    background: linear-gradient(90deg, rgba(124,92,255,.18), rgba(34,211,238,.14));
+    border-bottom: 1px solid var(--border);
+    font-size: .85rem; color: var(--text); text-align: center;
+  }
+  .ribbon a { color: #c9bcff; text-decoration: none; font-weight: 600; }
+  .ribbon a:hover { text-decoration: underline; }
+  .ribbon .x {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--muted); font-size: 1rem; line-height: 1; opacity: .7;
+  }
+
+  /* Nav */
+  nav { padding: 22px 0; }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .logo { font-weight: 800; letter-spacing: -.02em; font-size: 1.1rem; text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 22px; list-style: none; font-size: .92rem; }
+  .nav-links a { text-decoration: none; color: var(--muted); transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  @media (max-width: 600px) { .nav-links { display: none; } }
+
+  /* Hero */
+  .hero { position: relative; padding: 90px 0 110px; text-align: center; isolation: isolate; }
+  .glow {
+    position: absolute; inset: -10% 0 auto; height: 520px; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(40% 55% at 35% 45%, rgba(124,92,255,.45), transparent 70%),
+      radial-gradient(35% 50% at 65% 50%, rgba(34,211,238,.28), transparent 70%);
+    filter: blur(40px);
+    animation: drift 12s ease-in-out infinite alternate;
+  }
+  @keyframes drift { from { transform: translateX(-3%) scale(1); } to { transform: translateX(3%) scale(1.08); } }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px; font-size: .82rem; color: var(--muted);
+    border: 1px solid var(--border); background: rgba(255,255,255,.03); margin-bottom: 26px;
+  }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 10px #34d399; }
+  h1 {
+    font-size: clamp(2.6rem, 9vw, 5.4rem); line-height: 1.02; letter-spacing: -.045em; font-weight: 800;
+    background: linear-gradient(180deg, #fff 30%, #b9b3d9);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .tagline { margin: 22px auto 36px; max-width: 560px; font-size: clamp(1.05rem, 2.6vw, 1.25rem); color: var(--muted); }
+  .tagline strong { color: var(--text); font-weight: 600; }
+  .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 24px; border-radius: 12px; font-weight: 600; font-size: .95rem; text-decoration: none;
+    transition: transform .2s, box-shadow .2s, background .2s, border-color .2s; cursor: pointer; border: 0; font-family: inherit;
+  }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 30px -8px rgba(124,92,255,.7); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 36px -8px rgba(124,92,255,.9); }
+  .btn-ghost { border: 1px solid var(--border); color: var(--text); background: rgba(255,255,255,.03); }
+  .btn-ghost:hover { border-color: rgba(255,255,255,.25); transform: translateY(-2px); }
+
+  /* Sections */
+  section { padding: 80px 0; }
+  .label { font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  h2 { font-size: clamp(1.8rem, 4.5vw, 2.6rem); letter-spacing: -.03em; line-height: 1.15; margin-bottom: 18px; }
+  .lead { color: var(--muted); font-size: 1.1rem; max-width: 640px; }
+
+  .about { display: grid; grid-template-columns: 220px 1fr; gap: 48px; align-items: center; }
+  .avatar {
+    width: 200px; aspect-ratio: 1; border-radius: 28px; display: grid; place-items: center;
+    font-size: 4.5rem; font-weight: 800; color: #fff; letter-spacing: -.04em;
+    background: conic-gradient(from 210deg, var(--accent), var(--accent-2), #f472b6, var(--accent));
+    box-shadow: 0 20px 60px -20px rgba(124,92,255,.7);
+    position: relative;
+  }
+  .avatar::after { content: ""; position: absolute; inset: 6px; border-radius: 22px; background: var(--bg-2); z-index: 0; }
+  .avatar span { position: relative; z-index: 1; background: linear-gradient(135deg, #fff, #c9bcff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .about p + p { margin-top: 14px; }
+  .about p { color: var(--muted); font-size: 1.08rem; }
+  .about p strong { color: var(--text); }
+  @media (max-width: 720px) { .about { grid-template-columns: 1fr; gap: 28px; } .avatar { width: 140px; font-size: 3rem; } }
+
+  .grid { display: grid; gap: 18px; margin-top: 36px; }
+  .grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 26px; position: relative; overflow: hidden;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .3s;
+    background: radial-gradient(500px circle at 0% 0%, rgba(124,92,255,.14), transparent 45%);
+    pointer-events: none;
+  }
+  .card:hover { transform: translateY(-4px); border-color: rgba(124,92,255,.45); box-shadow: 0 20px 40px -20px rgba(0,0,0,.6); }
+  .card:hover::before { opacity: 1; }
+  .icon {
+    width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 1.4rem;
+    background: rgba(124,92,255,.12); border: 1px solid rgba(124,92,255,.25); margin-bottom: 18px;
+  }
+  .card h3 { font-size: 1.12rem; margin-bottom: 8px; letter-spacing: -.01em; }
+  .card p { color: var(--muted); font-size: .96rem; }
+
+  .project { display: flex; flex-direction: column; padding: 0; }
+  .thumb { height: 150px; position: relative; border-bottom: 1px solid var(--border); }
+  .thumb-1 { background: linear-gradient(135deg, #1e1b4b, #4c1d95 60%, #7c5cff); }
+  .thumb-2 { background: linear-gradient(135deg, #0c4a6e, #0e7490 55%, #22d3ee); }
+  .thumb-3 { background: repeating-linear-gradient(45deg, #151924 0 12px, #1b2030 12px 24px); display: grid; place-items: center; font-size: 2.6rem; font-weight: 800; color: rgba(255,255,255,.25); }
+  .thumb .win { position: absolute; left: 22px; right: 22px; bottom: -1px; height: 96px; border-radius: 10px 10px 0 0; background: rgba(11,13,18,.85); border: 1px solid rgba(255,255,255,.12); border-bottom: 0; padding: 10px 12px; }
+  .thumb .dots { display: flex; gap: 5px; margin-bottom: 10px; }
+  .thumb .dots i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.25); }
+  .thumb .line { height: 7px; border-radius: 4px; background: rgba(255,255,255,.14); margin-bottom: 7px; }
+  .thumb .line.w60 { width: 60%; } .thumb .line.w80 { width: 80%; } .thumb .line.w40 { width: 40%; background: var(--accent); opacity: .8; }
+  .project .body { padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; }
+  .tag { display: inline-block; font-size: .74rem; font-weight: 600; color: var(--accent-2); background: rgba(34,211,238,.1); border-radius: 999px; padding: 3px 10px; margin-bottom: 12px; align-self: flex-start; }
+  .project .more { margin-top: auto; padding-top: 16px; font-weight: 600; font-size: .92rem; color: #c9bcff; text-decoration: none; }
+  .project .more:hover { color: #fff; }
+
+  .contact {
+    text-align: center; border: 1px solid var(--border); border-radius: 28px; padding: 64px 24px;
+    background: radial-gradient(60% 120% at 50% 0%, rgba(124,92,255,.22), transparent 70%), var(--bg-2);
+  }
+  .contact .lead { margin: 0 auto 30px; }
+
+  /* Prompt box */
+  .prompt-box { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-top: 26px; }
+  .prompt-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: .85rem; color: var(--muted); }
+  .copy-btn { font-family: inherit; font-size: .85rem; font-weight: 600; padding: 7px 14px; border-radius: 8px; border: 1px solid rgba(124,92,255,.5); background: rgba(124,92,255,.15); color: #fff; cursor: pointer; transition: background .2s; }
+  .copy-btn:hover { background: rgba(124,92,255,.35); }
+  pre { padding: 20px; white-space: pre-wrap; word-wrap: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .95rem; line-height: 1.65; color: #dcd6ff; }
+
+  footer { border-top: 1px solid var(--border); padding: 32px 0 40px; color: var(--muted); font-size: .9rem; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+  footer a { color: var(--text); text-decoration: none; font-weight: 600; }
+  footer a:hover { color: var(--accent); }
+
+  :focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; border-radius: 6px; }
+
+  /* Fade-in on scroll */
+  .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .js .reveal.visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .glow { animation: none; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+    .card, .btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ribbon" role="note">
+  <span>Style demo: <strong>Modern Dark</strong> — <a href="#prompt">see the prompt that made this ↓</a></span>
+  <span class="x" aria-hidden="true">✕</span>
+</div>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">Alberto<span>.</span></a> <!-- EDIT ME: your name or initials -->
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#into">Interests</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="pill"><i aria-hidden="true"></i> Currently: teaching people to build websites with AI</div> <!-- EDIT ME: what you're up to -->
+    <h1>Alberto Santana</h1> <!-- EDIT ME: your name -->
+    <p class="tagline">I build things with AI — <strong>and teach others to do the same.</strong></p> <!-- EDIT ME: your tagline -->
+    <div class="btns">
+      <a class="btn btn-primary" href="#projects">See my projects →</a>
+      <a class="btn btn-ghost" href="#contact">Say hi 👋</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="about" class="reveal">
+    <div class="wrap about">
+      <div class="avatar" role="img" aria-label="Alberto's initials"><span>AS</span></div> <!-- EDIT ME: your initials -->
+      <div>
+        <p class="label">About me</p>
+        <h2>Hi, I'm Alberto.</h2> <!-- EDIT ME -->
+        <!-- EDIT ME: your 2–3 sentence bio -->
+        <p>I work in <strong>energy &amp; tech</strong>, and I love turning ideas into real things on the internet.</p>
+        <p>These days, a lot of that happens with AI as my building partner. I also teach this class — so if you're reading this, you're about to make one of these yourself.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="into" class="reveal">
+    <div class="wrap">
+      <p class="label">Things I'm into</p>
+      <h2>What gets me excited</h2>
+      <div class="grid grid-4">
+        <!-- EDIT ME: swap in your own interests -->
+        <article class="card"><div class="icon" aria-hidden="true">🤖</div><h3>Building with AI</h3><p>Using AI tools to go from "what if…" to something real in an afternoon.</p></article>
+        <article class="card"><div class="icon" aria-hidden="true">⚡</div><h3>Clean energy</h3><p>Curious about how we power the world — and how to do it better.</p></article>
+        <article class="card"><div class="icon" aria-hidden="true">🎓</div><h3>Teaching</h3><p>Nothing beats the moment someone's first website goes live.</p></article>
+        <article class="card"><div class="icon" aria-hidden="true">🎧</div><h3>Design &amp; music</h3><p>Good design and a good playlist make everything better.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="reveal">
+    <div class="wrap">
+      <p class="label">Projects</p>
+      <h2>Stuff I've made</h2>
+      <div class="grid grid-3">
+        <!-- EDIT ME: replace with your own projects -->
+        <article class="card project">
+          <div class="thumb thumb-1" aria-hidden="true"><div class="win"><div class="dots"><i></i><i></i><i></i></div><div class="line w80"></div><div class="line w60"></div><div class="line w40"></div></div></div>
+          <div class="body"><span class="tag">Teaching</span><h3>This class website</h3><p>A step-by-step guide that takes students from zero to a live personal site.</p><a class="more" href="../index.html">Visit the guide →</a></div>
+        </article>
+        <article class="card project">
+          <div class="thumb thumb-2" aria-hidden="true"><div class="win"><div class="dots"><i></i><i></i><i></i></div><div class="line w60"></div><div class="line w80"></div><div class="line w40"></div></div></div>
+          <div class="body"><span class="tag">Web</span><h3>Personal site (you're looking at it)</h3><p>Made with an AI chatbot, one HTML file, hosted free on GitHub Pages.</p><a class="more" href="#top">Back to top ↑</a></div>
+        </article>
+        <article class="card project">
+          <div class="thumb thumb-3" aria-hidden="true">???</div>
+          <div class="body"><span class="tag">Coming soon</span><h3>Next idea: ???</h3><p>Something new is brewing. Got a suggestion? Tell me.</p><a class="more" href="#contact">Pitch me an idea →</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="reveal">
+    <div class="wrap">
+      <div class="contact">
+        <p class="label">Contact</p>
+        <h2>Let's build something.</h2>
+        <p class="lead">Questions, ideas, or just want to show me the site you made? I'd love to hear from you.</p> <!-- EDIT ME -->
+        <a class="btn btn-primary" href="#">Say hi 👋</a> <!-- EDIT ME: add your real link -->
+      </div>
+    </div>
+  </section>
+
+  <section id="prompt" class="reveal">
+    <div class="wrap">
+      <p class="label">Behind the scenes</p>
+      <h2>The prompt that made this page</h2>
+      <p class="lead">Same content as the other demos — only the style prompt changed.</p>
+      <div class="prompt-box">
+        <div class="prompt-head"><span>style prompt</span><button class="copy-btn" type="button" data-copy="prompt-text">Copy</button></div>
+        <pre id="prompt-text">Make it modern and sleek: a dark background with one bright accent color, a soft glowing gradient behind my name, smooth hover effects, and sections that gently fade in as I scroll.</pre>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Made with AI · Hosted free on GitHub Pages</span>
+    <a href="../index.html">← Back to the class guide</a>
+  </div>
+</footer>
+
+<script>
+  // Fade sections in as they scroll into view
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('visible'); });
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      els.forEach(function (el) { io.observe(el); });
+    }
+  })();
+
+  // Copy buttons
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pre = document.getElementById(btn.getAttribute('data-copy'));
+      var text = pre.textContent;
+      var done = function () { var o = btn.textContent; btn.textContent = 'Copied!'; setTimeout(function () { btn.textContent = o; }, 1600); };
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(pre);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        try { document.execCommand('copy'); done(); } catch (e) { btn.textContent = 'Press Ctrl/⌘+C'; }
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else { fallback(); }
+    });
+  });
+</script>
+</body>
+</html>

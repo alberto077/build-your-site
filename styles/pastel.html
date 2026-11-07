@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alberto Santana — Soft &amp; Cozy</title>
+<meta name="description" content="Alberto Santana's personal website in a soft, cozy pastel style. A style demo for the Build Your Own Personal Website class.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --text: #3d3554;
+    --muted: #5f5878;
+    --pink: #ffd6e7;
+    --peach: #ffe4cc;
+    --mint: #d4f5e4;
+    --sky: #d6e9ff;
+    --lilac: #e6dcff;
+    --butter: #fff4c2;
+    --accent: #b0447a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Nunito", "Quicksand", system-ui, sans-serif; color: var(--text); line-height: 1.65; overflow-x: hidden; min-height: 100vh;
+    background: linear-gradient(160deg, #ffe3ef 0%, #f1e4ff 35%, #dff1ff 70%, #e3fbef 100%) fixed;
+  }
+  a { color: inherit; }
+  .wrap { width: min(960px, 100% - 36px); margin-inline: auto; position: relative; }
+
+  /* Floating blobs */
+  .blob { position: fixed; z-index: -1; filter: blur(2px); opacity: .7; pointer-events: none; }
+  .b1 { width: 340px; height: 300px; top: -80px; left: -100px; background: #ffc2dc; border-radius: 62% 38% 55% 45% / 50% 60% 40% 50%; animation: wob 14s ease-in-out infinite alternate; }
+  .b2 { width: 280px; height: 300px; top: 40%; right: -120px; background: #c9e4ff; border-radius: 40% 60% 35% 65% / 55% 45% 55% 45%; animation: wob 18s ease-in-out infinite alternate-reverse; }
+  .b3 { width: 260px; height: 220px; bottom: -60px; left: 10%; background: #d6f7e3; border-radius: 55% 45% 60% 40% / 45% 55% 45% 55%; animation: wob 16s ease-in-out infinite alternate; }
+  @keyframes wob { to { transform: translate(30px, 20px) rotate(12deg) scale(1.06); } }
+
+  .ribbon { display: flex; justify-content: center; padding: 12px 12px 0; }
+  .ribbon div { position: relative; background: #fff; border-radius: 999px; padding: 8px 40px 8px 18px; font-size: .88rem; font-weight: 700; box-shadow: 0 4px 0 rgba(61,53,84,.08); text-align: center; }
+  .ribbon a { color: var(--accent); text-decoration: none; }
+  .ribbon a:hover { text-decoration: underline; }
+  .ribbon .x { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; background: var(--pink); display: grid; place-items: center; font-size: .7rem; }
+
+  nav { padding: 20px 0; }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .logo { font-weight: 900; font-size: 1.2rem; text-decoration: none; }
+  .nav-links { display: flex; gap: 8px; list-style: none; }
+  .nav-links a { text-decoration: none; font-weight: 700; font-size: .9rem; padding: 6px 14px; border-radius: 999px; transition: background .2s; }
+  .nav-links a:hover { background: rgba(255,255,255,.7); }
+  @media (max-width: 600px) { .nav-links { display: none; } }
+
+  .hero { padding: 60px 0 70px; text-align: center; }
+  .avatar { width: 120px; height: 120px; margin: 0 auto 24px; display: grid; place-items: center; font-size: 3.4rem;
+    background: var(--butter); border: 5px solid #fff; border-radius: 46% 54% 50% 50% / 55% 45% 55% 45%; box-shadow: 0 10px 0 rgba(61,53,84,.07); transform: rotate(-4deg); }
+  h1 { font-weight: 900; font-size: clamp(2.6rem, 10vw, 4.8rem); line-height: 1.05; letter-spacing: -.02em; }
+  h1 .wave { display: inline-block; }
+  .tagline { margin: 18px auto 30px; max-width: 520px; font-size: clamp(1.1rem, 3vw, 1.3rem); color: var(--muted); font-weight: 600; }
+  .btn { display: inline-block; padding: 14px 28px; border-radius: 999px; background: var(--text); color: #fff; text-decoration: none; font-weight: 800; box-shadow: 0 6px 0 #241e36; transition: transform .15s, box-shadow .15s; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #241e36; }
+  .btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #241e36; }
+  .btn.soft { background: #fff; color: var(--text); box-shadow: 0 6px 0 rgba(61,53,84,.15); }
+  .btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+  section { padding: 50px 0; }
+  h2 { font-weight: 900; font-size: clamp(1.7rem, 5vw, 2.3rem); margin-bottom: 26px; text-align: center; }
+  h2 span { background: linear-gradient(transparent 60%, rgba(255,255,255,.85) 60%); padding: 0 6px; }
+
+  .sticker { background: #fff; border-radius: 26px; padding: 24px; border: 4px solid #fff; box-shadow: 0 10px 24px -10px rgba(61,53,84,.25), 0 2px 0 rgba(61,53,84,.05);
+    transition: transform .25s cubic-bezier(.3,1.6,.6,1); position: relative; }
+  .sticker:hover { transform: rotate(0deg) scale(1.04) !important; }
+  .about-card { max-width: 640px; margin: 0 auto; transform: rotate(-1deg); background: var(--butter); font-size: 1.1rem; text-align: center; }
+  .about-card p + p { margin-top: 12px; }
+  .tape { position: absolute; top: -14px; left: 50%; width: 90px; height: 26px; transform: translateX(-50%) rotate(-3deg); background: rgba(255,214,231,.85); border-radius: 4px; }
+
+  .grid { display: grid; gap: 22px; }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .grid .sticker:nth-child(4n+1) { background: var(--pink); transform: rotate(-2.5deg); }
+  .grid .sticker:nth-child(4n+2) { background: var(--mint); transform: rotate(2deg); }
+  .grid .sticker:nth-child(4n+3) { background: var(--sky); transform: rotate(-1.5deg); }
+  .grid .sticker:nth-child(4n+4) { background: var(--lilac); transform: rotate(2.5deg); }
+  .sticker .e { width: 56px; height: 56px; border-radius: 50%; background: #fff; display: grid; place-items: center; font-size: 1.7rem; margin-bottom: 14px; }
+  .sticker h3 { font-weight: 900; font-size: 1.15rem; margin-bottom: 6px; }
+  .sticker p { color: var(--muted); }
+  .sticker a.more { display: inline-block; margin-top: 12px; font-weight: 800; text-decoration: none; color: var(--accent); }
+  .sticker a.more:hover { text-decoration: underline; }
+  .chip { display: inline-block; font-size: .75rem; font-weight: 800; background: rgba(255,255,255,.75); padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; }
+
+  .contact { text-align: center; background: var(--peach); transform: rotate(1deg); max-width: 560px; margin: 0 auto; padding: 36px 24px; }
+  .contact p { color: var(--muted); margin-bottom: 22px; font-size: 1.08rem; }
+
+  .prompt-box { background: #fff; border-radius: 22px; overflow: hidden; box-shadow: 0 10px 24px -12px rgba(61,53,84,.3); max-width: 720px; margin: 0 auto; }
+  .prompt-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 18px; background: var(--lilac); font-weight: 800; font-size: .9rem; }
+  .copy-btn { font-family: inherit; font-weight: 800; font-size: .88rem; padding: 7px 16px; border-radius: 999px; border: 0; background: var(--text); color: #fff; cursor: pointer; transition: transform .15s; }
+  .copy-btn:hover { transform: scale(1.06); }
+  pre { padding: 22px; white-space: pre-wrap; word-wrap: break-word; font-family: "Nunito", sans-serif; font-weight: 600; font-size: 1.05rem; line-height: 1.7; }
+  .sub { text-align: center; color: var(--muted); margin: -14px 0 22px; }
+
+  footer { padding: 40px 0 46px; text-align: center; font-weight: 700; color: var(--muted); font-size: .92rem; }
+  footer a { display: inline-block; margin-top: 8px; color: var(--text); text-decoration: none; background: #fff; padding: 8px 18px; border-radius: 999px; box-shadow: 0 4px 0 rgba(61,53,84,.1); }
+  footer a:hover { background: var(--pink); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 12px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blob { animation: none; }
+    .sticker, .btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="blob b1" aria-hidden="true"></div>
+<div class="blob b2" aria-hidden="true"></div>
+<div class="blob b3" aria-hidden="true"></div>
+
+<div class="ribbon" role="note">
+  <div>✿ Style demo: Soft &amp; Cozy — <a href="#prompt">see the prompt that made this ↓</a><span class="x" aria-hidden="true">✕</span></div>
+</div>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">alberto ✿</a> <!-- EDIT ME: your name -->
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#into">Interests</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="avatar" role="img" aria-label="Waving hand">👋</div> <!-- EDIT ME: pick your emoji -->
+    <h1>Hi, I'm Alberto Santana</h1> <!-- EDIT ME: your name -->
+    <p class="tagline">I build things with AI — and teach others to do the same.</p> <!-- EDIT ME: your tagline -->
+    <div class="btns">
+      <a class="btn" href="#projects">See my projects</a>
+      <a class="btn soft" href="#contact">Say hi ♡</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="about">
+    <div class="wrap">
+      <h2><span>About me</span></h2>
+      <div class="sticker about-card">
+        <div class="tape" aria-hidden="true"></div>
+        <!-- EDIT ME: your 2–3 sentence bio -->
+        <p>I work in energy &amp; tech, and I love turning ideas into real things on the internet.</p>
+        <p>AI is my favorite building buddy these days. I also teach this class — so you're about to make one of these too!</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="into">
+    <div class="wrap">
+      <h2><span>Things I'm into</span></h2>
+      <!-- EDIT ME: swap in your own interests -->
+      <div class="grid g4">
+        <article class="sticker"><div class="e" aria-hidden="true">🤖</div><h3>Building with AI</h3><p>From "what if…" to real in an afternoon.</p></article>
+        <article class="sticker"><div class="e" aria-hidden="true">🌱</div><h3>Clean energy</h3><p>Powering the world — and doing it kindly.</p></article>
+        <article class="sticker"><div class="e" aria-hidden="true">🎓</div><h3>Teaching</h3><p>Nothing beats a first website going live.</p></article>
+        <article class="sticker"><div class="e" aria-hidden="true">🎧</div><h3>Design &amp; music</h3><p>Good design and a cozy playlist.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <h2><span>Projects</span></h2>
+      <!-- EDIT ME: replace with your own projects -->
+      <div class="grid g3">
+        <article class="sticker"><span class="chip">📚 teaching</span><h3>This class website</h3><p>A step-by-step guide from zero to a live site.</p><a class="more" href="../index.html">Take a peek →</a></article>
+        <article class="sticker"><span class="chip">💻 web</span><h3>Personal site (you're looking at it)</h3><p>One HTML file, made with AI, hosted free.</p><a class="more" href="#top">Back to top ↑</a></article>
+        <article class="sticker"><span class="chip">✨ soon</span><h3>Next idea: ???</h3><p>Something sweet is brewing…</p><a class="more" href="#contact">Share an idea →</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="sticker contact">
+        <h2 style="margin-bottom:10px">Say hi! ♡</h2>
+        <p>Questions, ideas, or a site you're proud of? I'd love to hear from you.</p> <!-- EDIT ME -->
+        <a class="btn" href="#">Say hi 👋</a> <!-- EDIT ME: add your real link -->
+      </div>
+    </div>
+  </section>
+
+  <section id="prompt">
+    <div class="wrap">
+      <h2><span>The prompt that made this page</span></h2>
+      <p class="sub">Same content as the other demos — only this style prompt changed.</p>
+      <div class="prompt-box">
+        <div class="prompt-head"><span>✎ style prompt</span><button class="copy-btn" type="button" data-copy="prompt-text">Copy</button></div>
+        <pre id="prompt-text">Make it soft and cozy: a pastel gradient background, rounded shapes, a friendly rounded font, and cards that look like stickers placed slightly crooked.</pre>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Made with AI · Hosted free on GitHub Pages</p>
+    <a href="../index.html">← Back to the class guide</a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pre = document.getElementById(btn.getAttribute('data-copy'));
+      var done = function () { var o = btn.textContent; btn.textContent = 'Copied!'; setTimeout(function () { btn.textContent = o; }, 1600); };
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(pre);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        try { document.execCommand('copy'); done(); } catch (e) { btn.textContent = 'Press Ctrl/⌘+C'; }
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(pre.textContent).then(done, fallback);
+      else fallback();
+    });
+  });
+</script>
+</body>
+</html>

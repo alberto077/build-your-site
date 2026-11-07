@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alberto Santana — Clean &amp; Minimal</title>
+<meta name="description" content="Alberto Santana's personal website in a clean, minimal style. A style demo for the Build Your Own Personal Website class.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdfdfb;
+    --text: #111;
+    --muted: #5c5c5c;
+    --line: #e4e2dc;
+    --accent: #c2410c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Inter", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; }
+  .wrap { width: min(760px, 100% - 48px); margin-inline: auto; }
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; font-weight: 300; letter-spacing: -.02em; }
+
+  .ribbon { border-bottom: 1px solid var(--line); font-size: .82rem; color: var(--muted); padding: 10px 44px 10px 16px; text-align: center; position: relative; letter-spacing: .01em; }
+  .ribbon a { color: var(--accent); text-decoration: none; }
+  .ribbon a:hover { text-decoration: underline; }
+  .ribbon .x { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: #999; }
+
+  nav { padding: 28px 0; }
+  nav .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .logo { font-family: "Fraunces", serif; font-size: 1.15rem; text-decoration: none; }
+  .nav-links { display: flex; gap: 24px; list-style: none; font-size: .88rem; }
+  .nav-links a { text-decoration: none; color: var(--muted); }
+  .nav-links a:hover { color: var(--accent); }
+  @media (max-width: 560px) { .nav-links { display: none; } }
+
+  .hero { padding: 100px 0 90px; }
+  .eyebrow { font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 22px; }
+  h1 { font-size: clamp(3rem, 11vw, 5.6rem); line-height: 1; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .tagline { margin-top: 28px; font-size: clamp(1.1rem, 3vw, 1.35rem); color: var(--muted); max-width: 520px; font-family: "Fraunces", serif; font-weight: 300; }
+
+  hr { border: 0; border-top: 1px solid var(--line); }
+  section { padding: 72px 0; }
+  .sec-head { display: grid; grid-template-columns: 160px 1fr; gap: 32px; }
+  .num { font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); padding-top: 10px; }
+  h2 { font-size: clamp(1.8rem, 5vw, 2.4rem); line-height: 1.15; margin-bottom: 20px; }
+  p.body { color: var(--muted); font-size: 1.05rem; }
+  p.body + p.body { margin-top: 14px; }
+  @media (max-width: 640px) { .sec-head { grid-template-columns: 1fr; gap: 6px; } }
+
+  .list { list-style: none; margin-top: 8px; }
+  .list li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 22px 0; border-top: 1px solid var(--line); }
+  .list li:last-child { border-bottom: 1px solid var(--line); }
+  .list .ico { font-size: 1.2rem; line-height: 1.6; }
+  .list h3 { font-size: 1.3rem; margin-bottom: 4px; }
+  .list p { color: var(--muted); font-size: .97rem; }
+
+  .proj { display: block; text-decoration: none; padding: 26px 0; border-top: 1px solid var(--line); transition: padding .25s ease; }
+  .proj:last-of-type { border-bottom: 1px solid var(--line); }
+  .proj:hover { padding-left: 10px; }
+  .proj .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .proj h3 { font-size: 1.45rem; }
+  .proj:hover h3 { color: var(--accent); }
+  .proj .yr { font-size: .8rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+  .proj p { color: var(--muted); margin-top: 4px; }
+
+  .btn { display: inline-block; margin-top: 10px; padding: 14px 30px; border: 1px solid var(--text); color: var(--text); text-decoration: none; font-size: .95rem; letter-spacing: .02em; transition: background .2s, color .2s; }
+  .btn:hover { background: var(--text); color: var(--bg); }
+
+  .prompt-box { border: 1px solid var(--line); margin-top: 10px; }
+  .prompt-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--line); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); gap: 12px; }
+  .copy-btn { font: inherit; letter-spacing: .1em; background: none; border: 1px solid var(--line); padding: 6px 12px; cursor: pointer; color: var(--text); transition: border-color .2s, color .2s; }
+  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+  pre { padding: 22px; white-space: pre-wrap; word-wrap: break-word; font-family: "Fraunces", Georgia, serif; font-style: italic; font-weight: 300; font-size: 1.12rem; line-height: 1.6; }
+
+  footer { border-top: 1px solid var(--line); padding: 34px 0 48px; font-size: .88rem; color: var(--muted); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+  footer a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line); }
+  footer a:hover { color: var(--accent); border-color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<div class="ribbon" role="note">
+  Style demo: <strong>Clean &amp; Minimal</strong> — <a href="#prompt">see the prompt that made this ↓</a>
+  <span class="x" aria-hidden="true">×</span>
+</div>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">Alberto Santana</a> <!-- EDIT ME: your name -->
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#into">Interests</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <p class="eyebrow">Personal website</p>
+    <h1>Alberto <em>Santana</em></h1> <!-- EDIT ME: your name -->
+    <p class="tagline">I build things with AI — and teach others to do the same.</p> <!-- EDIT ME: your tagline -->
+  </div>
+</header>
+
+<main>
+  <div class="wrap"><hr></div>
+
+  <section id="about">
+    <div class="wrap sec-head">
+      <p class="num">01 — About</p>
+      <div>
+        <h2>A little about me</h2>
+        <!-- EDIT ME: your 2–3 sentence bio -->
+        <p class="body">I work in energy &amp; tech, and I love turning ideas into real things on the internet.</p>
+        <p class="body">Lately, AI is my favorite building partner. I also teach this class — so you're about to make one of these too.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="into">
+    <div class="wrap sec-head">
+      <p class="num">02 — Interests</p>
+      <div>
+        <h2>Things I'm into</h2>
+        <!-- EDIT ME: swap in your own interests -->
+        <ul class="list">
+          <li><span class="ico" aria-hidden="true">🤖</span><div><h3>Building with AI</h3><p>Going from "what if…" to something real in an afternoon.</p></div></li>
+          <li><span class="ico" aria-hidden="true">⚡</span><div><h3>Clean energy</h3><p>How we power the world — and how to do it better.</p></div></li>
+          <li><span class="ico" aria-hidden="true">🎓</span><div><h3>Teaching</h3><p>Nothing beats the moment someone's first site goes live.</p></div></li>
+          <li><span class="ico" aria-hidden="true">🎧</span><div><h3>Design &amp; music</h3><p>Good design and a good playlist make everything better.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap sec-head">
+      <p class="num">03 — Projects</p>
+      <div>
+        <h2>Selected work</h2>
+        <!-- EDIT ME: replace with your own projects -->
+        <a class="proj" href="../index.html"><div class="row"><h3>This class website</h3><span class="yr">Teaching</span></div><p>A step-by-step guide from zero to a live personal site.</p></a>
+        <a class="proj" href="#top"><div class="row"><h3>Personal site (you're looking at it)</h3><span class="yr">Web</span></div><p>One HTML file, made with AI, hosted free.</p></a>
+        <a class="proj" href="#contact"><div class="row"><h3>Next idea: ???</h3><span class="yr">Soon</span></div><p>Something new is brewing. Suggestions welcome.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap sec-head">
+      <p class="num">04 — Contact</p>
+      <div>
+        <h2>Let's talk.</h2>
+        <p class="body">Questions, ideas, or a site you're proud of — I'd love to hear about it.</p> <!-- EDIT ME -->
+        <a class="btn" href="#">Say hi →</a> <!-- EDIT ME: add your real link -->
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><hr></div>
+
+  <section id="prompt">
+    <div class="wrap sec-head">
+      <p class="num">The prompt</p>
+      <div>
+        <h2>The prompt that made this page</h2>
+        <p class="body" style="margin-bottom:22px">Same content as the other demos — only this style prompt changed.</p>
+        <div class="prompt-box">
+          <div class="prompt-head"><span>Style prompt</span><button class="copy-btn" type="button" data-copy="prompt-text">Copy</button></div>
+          <pre id="prompt-text">Make it clean and minimal: lots of white space, black text, one accent color, an elegant serif font for headings, and simple thin-line dividers. It should feel calm and professional.</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Made with AI · Hosted free on GitHub Pages</span>
+    <a href="../index.html">← Back to the class guide</a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pre = document.getElementById(btn.getAttribute('data-copy'));
+      var done = function () { var o = btn.textContent; btn.textContent = 'Copied!'; setTimeout(function () { btn.textContent = o; }, 1600); };
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(pre);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        try { document.execCommand('copy'); done(); } catch (e) { btn.textContent = 'Press Ctrl/⌘+C'; }
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(pre.textContent).then(done, fallback);
+      else fallback();
+    });
+  });
+</script>
+</body>
+</html>

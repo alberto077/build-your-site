@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>~*~ Alberto Santana's Homepage ~*~</title>
+<meta name="description" content="Alberto Santana's personal website as a fun 1990s homepage. A style demo for the Build Your Own Personal Website class.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --silver: #c0c0c0;
+    --light: #ffffff;
+    --dark: #808080;
+    --darker: #404040;
+    --navy: #000080;
+    --teal: #008080;
+    --yellow: #ffff00;
+    --pink: #ff00cc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.35rem; line-height: 1.35; color: #000;
+    overflow-x: hidden;
+    background-color: #1a0a4a;
+    /* tiled star + checker pattern */
+    background-image:
+      radial-gradient(circle at 25% 25%, #fff 1.2px, transparent 1.6px),
+      radial-gradient(circle at 75% 70%, #ffff66 1.4px, transparent 1.8px),
+      linear-gradient(45deg, rgba(255,255,255,.05) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.05) 75%),
+      linear-gradient(45deg, rgba(255,255,255,.05) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.05) 75%);
+    background-size: 48px 48px, 48px 48px, 32px 32px, 32px 32px;
+    background-position: 0 0, 0 0, 0 0, 16px 16px;
+  }
+  a { color: var(--navy); }
+  a:visited { color: #551a8b; }
+  .pixel { font-family: "Press Start 2P", monospace; }
+
+  /* Ribbon */
+  .ribbon { background: var(--yellow); color: #000; border-bottom: 3px solid #000; padding: 8px 40px 8px 12px; text-align: center; font-size: 1.2rem; position: relative; }
+  .ribbon a { color: #c00; font-weight: bold; }
+  .ribbon .x { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 22px; height: 20px; display: grid; place-items: center; background: var(--silver); font-family: Arial, sans-serif; font-size: .8rem; font-weight: bold;
+    border: 2px solid; border-color: var(--light) var(--darker) var(--darker) var(--light); }
+
+  /* Marquee */
+  .marquee { background: #000; color: #0f0; border-bottom: 3px ridge var(--silver); overflow: hidden; white-space: nowrap; padding: 6px 0; font-size: 1.35rem; }
+  .marquee span { display: inline-block; padding-left: 100%; animation: scroll 22s linear infinite; }
+  @keyframes scroll { to { transform: translateX(-100%); } }
+
+  .page { width: min(860px, 100% - 24px); margin: 22px auto 30px; }
+
+  /* Window panels */
+  .win { background: var(--silver); border: 3px solid; border-color: var(--light) var(--darker) var(--darker) var(--light); box-shadow: 4px 4px 0 #000; margin-bottom: 22px; }
+  .titlebar { background: linear-gradient(90deg, var(--navy), #1084d0); color: #fff; padding: 5px 8px; display: flex; justify-content: space-between; align-items: center; gap: 8px; font-family: "Press Start 2P", monospace; font-size: .62rem; }
+  .titlebar .btns { display: flex; gap: 3px; }
+  .titlebar .btns i { width: 16px; height: 14px; background: var(--silver); border: 2px solid; border-color: var(--light) var(--darker) var(--darker) var(--light); }
+  .content { padding: 18px; background: #fff; margin: 4px; border: 2px solid; border-color: var(--dark) var(--light) var(--light) var(--dark); }
+
+  /* Hero */
+  .hero { text-align: center; }
+  h1 { font-family: "Press Start 2P", monospace; font-size: clamp(1.25rem, 5.5vw, 2.4rem); line-height: 1.4; margin: 10px 0 16px;
+    background: linear-gradient(90deg, #ff0000, #ff8800, #ffdd00, #00cc00, #0066ff, #9900ff);
+    -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; }
+  .welcome { font-family: "Press Start 2P", monospace; font-size: .7rem; color: var(--pink); }
+  .blink { animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .tagline { font-size: 1.6rem; color: var(--navy); }
+
+  .uc { display: inline-flex; align-items: center; gap: 10px; margin-top: 14px; padding: 8px 14px; background: repeating-linear-gradient(45deg, #ffd800 0 14px, #000 14px 28px); border: 3px solid #000; }
+  .uc span { background: #ffd800; padding: 4px 8px; font-family: "Press Start 2P", monospace; font-size: .6rem; color: #000; border: 2px solid #000; }
+
+  .counter { display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; margin-top: 16px; font-size: 1.3rem; }
+  .digits { display: inline-flex; gap: 2px; background: #000; padding: 3px; border: 2px inset var(--silver); }
+  .digits b { background: #111; color: #0f0; font-family: "VT323", monospace; font-size: 1.6rem; width: 18px; text-align: center; line-height: 1.1; text-shadow: 0 0 4px #0f0; }
+
+  h2 { font-family: "Press Start 2P", monospace; font-size: clamp(.8rem, 3vw, 1.05rem); color: var(--navy); margin-bottom: 14px; line-height: 1.5; }
+  p + p { margin-top: 10px; }
+  hr.rainbow { height: 6px; border: 0; margin: 16px 0; background: linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, magenta); }
+
+  .about { display: grid; grid-template-columns: 120px 1fr; gap: 18px; align-items: start; }
+  .face { width: 120px; height: 120px; display: grid; place-items: center; font-size: 4rem; background: var(--teal); border: 3px solid; border-color: var(--dark) var(--light) var(--light) var(--dark); }
+  @media (max-width: 520px) { .about { grid-template-columns: 1fr; } .face { margin: 0 auto; } }
+
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .tile { background: #ffffcc; border: 2px dashed var(--navy); padding: 12px; }
+  .tile .e { font-size: 2rem; }
+  .tile h3 { font-family: "Press Start 2P", monospace; font-size: .62rem; color: #c00; margin: 6px 0 8px; line-height: 1.5; }
+
+  .projects { list-style: none; }
+  .projects li { padding: 10px 0 10px 30px; position: relative; border-bottom: 1px dotted var(--dark); }
+  .projects li::before { content: "★"; position: absolute; left: 4px; top: 8px; color: #ff8800; font-size: 1.4rem; }
+  .projects li:last-child { border-bottom: 0; }
+  .projects b { color: var(--navy); }
+  .new { background: red; color: #fff; font-family: "Press Start 2P", monospace; font-size: .5rem; padding: 2px 4px; margin-left: 6px; vertical-align: middle; }
+
+  /* Beveled buttons */
+  .btn3d { display: inline-block; padding: 10px 22px; background: var(--silver); color: #000 !important; text-decoration: none; font-family: "Press Start 2P", monospace; font-size: .7rem;
+    border: 3px solid; border-color: var(--light) var(--darker) var(--darker) var(--light); box-shadow: 2px 2px 0 #000; cursor: pointer; }
+  .btn3d:hover { background: #d4d4d4; }
+  .btn3d:active { border-color: var(--darker) var(--light) var(--light) var(--darker); transform: translate(1px,1px); box-shadow: none; }
+  .contact { text-align: center; }
+  .contact p { margin-bottom: 14px; }
+
+  .prompt-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  pre { background: #000; color: #0f0; padding: 14px; white-space: pre-wrap; word-wrap: break-word; font-family: "VT323", monospace; font-size: 1.35rem; border: 3px inset var(--silver); }
+
+  footer { text-align: center; color: #fff; padding: 10px 12px 34px; font-size: 1.3rem; }
+  footer a, footer a:visited { color: var(--yellow); }
+  .badges { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .badge88 { width: 88px; height: 31px; display: grid; place-items: center; font-family: "Press Start 2P", monospace; font-size: .4rem; line-height: 1.4; text-align: center; border: 2px solid; border-color: var(--light) var(--darker) var(--darker) var(--light); }
+  :focus-visible { outline: 3px dashed var(--pink); outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee span { animation: none; padding-left: 12px; }
+    .blink { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ribbon" role="note">
+  Style demo: <b>Retro 90s Web</b> — <a href="#prompt">see the prompt that made this ↓</a>
+  <span class="x" aria-hidden="true">X</span>
+</div>
+
+<div class="marquee" aria-hidden="true">
+  <span>★ WELCOME TO MY HOMEPAGE!!! ★ Thanks 4 stopping by ★ Sign my guestbook ★ Best viewed in any browser at 375px or wider ★ Made with AI in 2026 but partying like it's 1999 ★</span> <!-- EDIT ME: your scrolling message -->
+</div>
+
+<div class="page">
+  <div class="win">
+    <div class="titlebar"><span>C:\HOMEPAGE\INDEX.HTM</span><span class="btns" aria-hidden="true"><i></i><i></i><i></i></span></div>
+    <header class="content hero" id="top">
+      <p class="welcome"><span class="blink">✦</span> WELCOME TO <span class="blink">✦</span></p>
+      <h1>Alberto Santana</h1> <!-- EDIT ME: your name -->
+      <p class="tagline">I build things with AI — and teach others to do the same.</p> <!-- EDIT ME: your tagline -->
+      <div class="uc" role="img" aria-label="Under construction"><span>🚧 UNDER CONSTRUCTION 🚧</span></div>
+      <div><div class="counter">You are visitor #
+        <span class="digits" aria-label="000420"><b>0</b><b>0</b><b>0</b><b>4</b><b>2</b><b>0</b></span>
+      </div></div>
+    </header>
+  </div>
+
+  <main>
+    <div class="win" id="about">
+      <div class="titlebar"><span>ABOUT_ME.TXT</span><span class="btns" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <section class="content">
+        <h2>~ About Me ~</h2>
+        <div class="about">
+          <div class="face" role="img" aria-label="Smiling computer">😎</div>
+          <div>
+            <!-- EDIT ME: your 2–3 sentence bio -->
+            <p>Hi!! I work in <b>energy &amp; tech</b>, and I love turning ideas into real things on the internet.</p>
+            <p>AI is my favorite building buddy. I also teach this class — so YOU are about to make one of these too!</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="win" id="into">
+      <div class="titlebar"><span>COOL_STUFF.EXE</span><span class="btns" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <section class="content">
+        <h2>~ Things I'm Into ~</h2>
+        <!-- EDIT ME: swap in your own interests -->
+        <div class="grid">
+          <div class="tile"><div class="e" aria-hidden="true">🤖</div><h3>Building with AI</h3><p>From "what if…" to real in an afternoon.</p></div>
+          <div class="tile"><div class="e" aria-hidden="true">⚡</div><h3>Clean energy</h3><p>Powering the world — but better.</p></div>
+          <div class="tile"><div class="e" aria-hidden="true">🎓</div><h3>Teaching</h3><p>Watching first websites go live = the best.</p></div>
+          <div class="tile"><div class="e" aria-hidden="true">🎧</div><h3>Design &amp; music</h3><p>Good design + a good playlist.</p></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="win" id="projects">
+      <div class="titlebar"><span>MY_PROJECTS</span><span class="btns" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <section class="content">
+        <h2>~ My Projects ~</h2>
+        <!-- EDIT ME: replace with your own projects -->
+        <ul class="projects">
+          <li><b>This class website</b> — a step-by-step guide to your own site. <a href="../index.html">[visit]</a></li>
+          <li><b>Personal site (you're looking at it)</b> — one HTML file, made with AI. <span class="new">NEW!</span></li>
+          <li><b>Next idea: ???</b> — something is brewing... <span class="blink">▮</span></li>
+        </ul>
+        <hr class="rainbow">
+        <div class="contact" id="contact">
+          <p>Want to say hi? Click the button!!</p> <!-- EDIT ME -->
+          <a class="btn3d" href="#">✉ Say hi</a> <!-- EDIT ME: add your real link -->
+        </div>
+      </section>
+    </div>
+
+    <div class="win" id="prompt">
+      <div class="titlebar"><span>PROMPT.TXT</span><span class="btns" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <section class="content">
+        <div class="prompt-head">
+          <h2 style="margin:0">The prompt that made this page</h2>
+          <button class="btn3d" type="button" data-copy="prompt-text">Copy</button>
+        </div>
+        <p style="margin-bottom:10px">Same content as the other demos — only this style prompt changed.</p>
+        <pre id="prompt-text">Make it look like a fun 1990s personal homepage: a patterned background, pixel or comic-style fonts, a scrolling banner, a fake visitor counter, chunky 3D buttons, and an 'under construction' sign. Keep the text readable.</pre>
+      </section>
+    </div>
+  </main>
+</div>
+
+<footer>
+  <div class="badges" aria-hidden="true">
+    <span class="badge88" style="background:#000;color:#0f0">MADE WITH<br>AI</span>
+    <span class="badge88" style="background:#fff;color:#000080">HTML<br>4 LYFE</span>
+    <span class="badge88" style="background:#ff00cc;color:#fff">NO<br>FRAMEWORKS</span>
+  </div>
+  <p>Made with AI · Hosted free on GitHub Pages</p>
+  <p><a href="../index.html">← Back to the class guide</a></p>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pre = document.getElementById(btn.getAttribute('data-copy'));
+      var done = function () { var o = btn.textContent; btn.textContent = 'Copied!'; setTimeout(function () { btn.textContent = o; }, 1600); };
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(pre);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        try { document.execCommand('copy'); done(); } catch (e) { btn.textContent = 'Press Ctrl/⌘+C'; }
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(pre.textContent).then(done, fallback);
+      else fallback();
+    });
+  });
+</script>
+</body>
+</html>

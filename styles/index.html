@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pick a Vibe — Style Gallery</title>
+<meta name="description" content="Five example personal websites with the same content and different style prompts. Pick a vibe and copy its prompt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,300&family=Press+Start+2P&family=Orbitron:wght@900&family=Nunito:wght@900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0d12; --bg-2: #11141b; --card: #151924; --border: rgba(255,255,255,0.08);
+    --text: #e8eaf0; --muted: #9aa3b5; --accent: #7c5cff; --accent-2: #22d3ee;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Inter", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .wrap { width: min(1120px, 100% - 36px); margin-inline: auto; }
+
+  .top { padding: 22px 0; }
+  .top a { text-decoration: none; color: var(--muted); font-size: .92rem; font-weight: 500; }
+  .top a:hover { color: var(--text); }
+
+  header { position: relative; padding: 50px 0 40px; text-align: center; isolation: isolate; }
+  header::before { content: ""; position: absolute; inset: -40px 0 auto; height: 340px; z-index: -1;
+    background: radial-gradient(35% 60% at 40% 50%, rgba(124,92,255,.35), transparent 70%), radial-gradient(30% 50% at 62% 50%, rgba(34,211,238,.2), transparent 70%); filter: blur(30px); }
+  .label { font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  h1 { font-size: clamp(2.4rem, 8vw, 4rem); letter-spacing: -.04em; line-height: 1.05; font-weight: 800; }
+  .lead { color: var(--muted); max-width: 600px; margin: 16px auto 0; font-size: 1.1rem; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; padding: 30px 0 70px; }
+  @media (max-width: 360px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; transition: transform .25s, border-color .25s, box-shadow .25s; }
+  .card:hover { transform: translateY(-4px); border-color: rgba(124,92,255,.45); box-shadow: 0 20px 40px -20px rgba(0,0,0,.7); }
+  .card.featured { border-color: rgba(124,92,255,.5); }
+  .body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+  .name-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .card h2 { font-size: 1.2rem; letter-spacing: -.01em; }
+  .badge { font-size: .7rem; font-weight: 700; color: #fff; background: var(--accent); border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+  .desc { color: var(--muted); font-size: .95rem; margin: 6px 0 14px; }
+  .prompt { background: var(--bg-2); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 16px; }
+  .prompt pre { padding: 12px 14px; white-space: pre-wrap; word-wrap: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .8rem; line-height: 1.55; color: #cfc8ff; }
+  .actions { margin-top: auto; display: flex; gap: 10px; }
+  .btn { flex: 1; text-align: center; padding: 11px 14px; border-radius: 10px; font-weight: 600; font-size: .92rem; text-decoration: none; cursor: pointer; font-family: inherit; transition: background .2s, border-color .2s, transform .2s; }
+  .btn-primary { background: var(--accent); color: #fff; border: 0; }
+  .btn-primary:hover { background: #8f73ff; }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { border-color: rgba(255,255,255,.3); }
+
+  /* Mini previews */
+  .pv { height: 170px; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); padding: 18px; display: flex; flex-direction: column; justify-content: center; }
+  .pv .t { line-height: 1.05; }
+  .pv .s { font-size: .72rem; margin-top: 8px; }
+  .pv .row { display: flex; gap: 6px; margin-top: 14px; }
+  .pv .row i { flex: 1; height: 30px; display: block; }
+
+  .pv-modern { background: #0b0d12; text-align: center; align-items: center; }
+  .pv-modern::before { content: ""; position: absolute; inset: 0; background: radial-gradient(40% 60% at 40% 45%, rgba(124,92,255,.55), transparent 70%), radial-gradient(35% 55% at 62% 50%, rgba(34,211,238,.3), transparent 70%); filter: blur(14px); }
+  .pv-modern > * { position: relative; }
+  .pv-modern .t { font-family: Inter, sans-serif; font-weight: 800; font-size: 1.7rem; letter-spacing: -.04em; color: #fff; }
+  .pv-modern .s { color: #9aa3b5; }
+  .pv-modern .row { width: 80%; }
+  .pv-modern .row i { background: #151924; border: 1px solid rgba(255,255,255,.1); border-radius: 6px; }
+
+  .pv-minimal { background: #fdfdfb; color: #111; }
+  .pv-minimal .t { font-family: Fraunces, Georgia, serif; font-weight: 300; font-size: 2rem; letter-spacing: -.02em; }
+  .pv-minimal .t em { color: #c2410c; }
+  .pv-minimal .s { color: #5c5c5c; }
+  .pv-minimal .row { flex-direction: column; gap: 0; }
+  .pv-minimal .row i { height: 14px; border-top: 1px solid #e4e2dc; flex: none; }
+
+  .pv-retro { background-color: #1a0a4a; background-image: radial-gradient(circle at 25% 25%, #fff 1px, transparent 1.5px), radial-gradient(circle at 75% 70%, #ff6 1.2px, transparent 1.6px); background-size: 28px 28px; padding: 12px; }
+  .pv-retro .w { background: #c0c0c0; border: 2px solid; border-color: #fff #404040 #404040 #fff; }
+  .pv-retro .bar { background: linear-gradient(90deg, #000080, #1084d0); height: 12px; }
+  .pv-retro .in { background: #fff; margin: 3px; padding: 10px; text-align: center; }
+  .pv-retro .t { font-family: "Press Start 2P", monospace; font-size: .8rem; background: linear-gradient(90deg, #f00, #f80, #dd0, #0c0, #06f, #90f); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1.5; }
+  .pv-retro .uc { display: inline-block; margin-top: 8px; padding: 3px; background: repeating-linear-gradient(45deg, #ffd800 0 6px, #000 6px 12px); }
+  .pv-retro .uc span { display: block; background: #ffd800; font-family: "Press Start 2P", monospace; font-size: .4rem; padding: 3px 5px; color: #000; }
+  .pv-retro .mq { background: #000; color: #0f0; font-family: monospace; font-size: .7rem; padding: 3px 6px; margin-top: 8px; white-space: nowrap; overflow: hidden; }
+
+  .pv-neon { background: #05050a; background-image: linear-gradient(rgba(0,240,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0,240,255,.07) 1px, transparent 1px); background-size: 22px 22px; text-align: center; align-items: center; }
+  .pv-neon .t { font-family: Orbitron, sans-serif; font-weight: 900; font-size: 1.45rem; color: #fff; text-transform: uppercase; text-shadow: -2px 0 #ff2bd6, 2px 0 #00f0ff, 0 0 18px #00f0ff; }
+  .pv-neon .s { color: #ff2bd6; text-shadow: 0 0 8px #ff2bd6; letter-spacing: .2em; text-transform: uppercase; font-size: .62rem; }
+  .pv-neon .row { width: 80%; }
+  .pv-neon .row i { border: 1px solid #00f0ff; box-shadow: 0 0 10px rgba(0,240,255,.5); }
+  .pv-neon .row i:nth-child(2) { border-color: #ff2bd6; box-shadow: 0 0 10px rgba(255,43,214,.5); }
+
+  .pv-pastel { background: linear-gradient(160deg, #ffe3ef, #f1e4ff 40%, #dff1ff 75%, #e3fbef); text-align: center; align-items: center; }
+  .pv-pastel::before { content: ""; position: absolute; width: 120px; height: 100px; top: -30px; left: -30px; background: #ffc2dc; border-radius: 62% 38% 55% 45% / 50% 60% 40% 50%; opacity: .7; }
+  .pv-pastel > * { position: relative; }
+  .pv-pastel .t { font-family: Nunito, sans-serif; font-weight: 900; font-size: 1.6rem; color: #3d3554; }
+  .pv-pastel .s { color: #5f5878; font-weight: 700; }
+  .pv-pastel .row { gap: 10px; }
+  .pv-pastel .row i { width: 46px; flex: none; height: 38px; border-radius: 12px; border: 3px solid #fff; box-shadow: 0 4px 8px rgba(61,53,84,.15); }
+  .pv-pastel .row i:nth-child(1) { background: #ffd6e7; transform: rotate(-6deg); }
+  .pv-pastel .row i:nth-child(2) { background: #d4f5e4; transform: rotate(4deg); }
+  .pv-pastel .row i:nth-child(3) { background: #d6e9ff; transform: rotate(-3deg); }
+
+  .tip { border: 1px solid var(--border); border-radius: 18px; padding: 24px; background: var(--bg-2); margin-bottom: 60px; display: flex; gap: 16px; align-items: flex-start; }
+  .tip .e { font-size: 1.6rem; line-height: 1; }
+  .tip p { color: var(--muted); }
+  .tip strong { color: var(--text); }
+
+  footer { border-top: 1px solid var(--border); padding: 30px 0 40px; color: var(--muted); font-size: .9rem; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+  footer a { color: var(--text); text-decoration: none; font-weight: 600; }
+  footer a:hover { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; border-radius: 6px; }
+  @media (prefers-reduced-motion: reduce) { .card, .btn { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap"><a href="../index.html">← Back to the class guide</a></div></div>
+
+<header>
+  <div class="wrap">
+    <p class="label">Style gallery</p>
+    <h1>Pick a vibe</h1>
+    <p class="lead">All five sites have the <strong>same content</strong>. The only thing that changed is one style prompt. Open one, then copy its prompt into your AI chat.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+
+    <article class="card featured">
+      <div class="pv pv-modern" aria-hidden="true"><div class="t">Alberto Santana</div><div class="s">I build things with AI</div><div class="row"><i></i><i></i><i></i></div></div>
+      <div class="body">
+        <div class="name-row"><h2>Modern Dark</h2><span class="badge">Flagship</span></div>
+        <p class="desc">Sleek and dark with one bright accent, a soft glow, and gentle scroll animations.</p>
+        <div class="prompt"><pre id="p-modern">Make it modern and sleek: a dark background with one bright accent color, a soft glowing gradient behind my name, smooth hover effects, and sections that gently fade in as I scroll.</pre></div>
+        <div class="actions"><a class="btn btn-primary" href="../example/">Open</a><button class="btn btn-ghost" type="button" data-copy="p-modern">Copy prompt</button></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="pv pv-minimal" aria-hidden="true"><div class="t">Alberto <em>Santana</em></div><div class="s">I build things with AI</div><div class="row"><i></i><i></i><i></i></div></div>
+      <div class="body">
+        <div class="name-row"><h2>Clean &amp; Minimal</h2></div>
+        <p class="desc">Calm and professional: white space, an elegant serif, and thin-line dividers.</p>
+        <div class="prompt"><pre id="p-minimal">Make it clean and minimal: lots of white space, black text, one accent color, an elegant serif font for headings, and simple thin-line dividers. It should feel calm and professional.</pre></div>
+        <div class="actions"><a class="btn btn-primary" href="minimal.html">Open</a><button class="btn btn-ghost" type="button" data-copy="p-minimal">Copy prompt</button></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="pv pv-retro" aria-hidden="true"><div class="w"><div class="bar"></div><div class="in"><div class="t">Alberto Santana</div><div class="uc"><span>UNDER CONSTRUCTION</span></div><div class="mq">★ WELCOME TO MY HOMEPAGE ★</div></div></div></div>
+      <div class="body">
+        <div class="name-row"><h2>Retro 90s Web</h2></div>
+        <p class="desc">A fun throwback: pixel fonts, a scrolling banner, a visitor counter, and 3D buttons.</p>
+        <div class="prompt"><pre id="p-retro">Make it look like a fun 1990s personal homepage: a patterned background, pixel or comic-style fonts, a scrolling banner, a fake visitor counter, chunky 3D buttons, and an 'under construction' sign. Keep the text readable.</pre></div>
+        <div class="actions"><a class="btn btn-primary" href="retro.html">Open</a><button class="btn btn-ghost" type="button" data-copy="p-retro">Copy prompt</button></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="pv pv-neon" aria-hidden="true"><div class="t">Alberto Santana</div><div class="s">Player 1 online</div><div class="row"><i></i><i></i><i></i></div></div>
+      <div class="body">
+        <div class="name-row"><h2>Bold Neon</h2></div>
+        <p class="desc">Gamer energy: near-black, glowing cyan and pink, and a glitchy heading.</p>
+        <div class="prompt"><pre id="p-neon">Make it bold and neon, like a gaming setup: a near-black background, glowing cyan and pink accents, a futuristic display font, and a glitchy animated heading.</pre></div>
+        <div class="actions"><a class="btn btn-primary" href="neon.html">Open</a><button class="btn btn-ghost" type="button" data-copy="p-neon">Copy prompt</button></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="pv pv-pastel" aria-hidden="true"><div class="t">Hi, I'm Alberto</div><div class="s">I build things with AI</div><div class="row"><i></i><i></i><i></i></div></div>
+      <div class="body">
+        <div class="name-row"><h2>Soft &amp; Cozy</h2></div>
+        <p class="desc">Pastel gradients, rounded shapes, and sticker cards placed slightly crooked.</p>
+        <div class="prompt"><pre id="p-pastel">Make it soft and cozy: a pastel gradient background, rounded shapes, a friendly rounded font, and cards that look like stickers placed slightly crooked.</pre></div>
+        <div class="actions"><a class="btn btn-primary" href="pastel.html">Open</a><button class="btn btn-ghost" type="button" data-copy="p-pastel">Copy prompt</button></div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="tip">
+    <div class="e" aria-hidden="true">💡</div>
+    <p><strong>Mix and match.</strong> These prompts are just starting points. Try combining them ("minimal, but with neon pink accents"), or describe a vibe in your own words — a favorite game, album cover, or place.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Made with AI · Hosted free on GitHub Pages</span>
+    <a href="../index.html">← Back to the class guide</a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pre = document.getElementById(btn.getAttribute('data-copy'));
+      var done = function () { var o = btn.textContent; btn.textContent = 'Copied!'; setTimeout(function () { btn.textContent = o; }, 1600); };
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(pre);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        try { document.execCommand('copy'); done(); } catch (e) { btn.textContent = 'Press Ctrl/⌘+C'; }
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(pre.textContent).then(done, fallback);
+      else fallback();
+    });
+  });
+</script>
+</body>
+</html>

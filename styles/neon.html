@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alberto Santana — Neon Mode</title>
+<meta name="description" content="Alberto Santana's personal website in a bold neon gamer style. A style demo for the Build Your Own Personal Website class.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05050a;
+    --panel: #0c0c16;
+    --cyan: #00f0ff;
+    --pink: #ff2bd6;
+    --text: #e9e9ff;
+    --muted: #a3a3c2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Space Grotesk", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden;
+    background-image:
+      linear-gradient(rgba(0,240,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,240,255,.05) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  /* scanlines */
+  body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px); }
+  a { color: inherit; }
+  .wrap { width: min(1040px, 100% - 36px); margin-inline: auto; }
+  .orb { font-family: "Orbitron", sans-serif; }
+
+  .ribbon { position: relative; padding: 8px 42px 8px 14px; text-align: center; font-size: .82rem; letter-spacing: .06em; text-transform: uppercase;
+    background: #000; border-bottom: 1px solid var(--pink); box-shadow: 0 0 18px rgba(255,43,214,.35); }
+  .ribbon a { color: var(--cyan); text-decoration: none; text-shadow: 0 0 8px var(--cyan); }
+  .ribbon a:hover { text-decoration: underline; }
+  .ribbon .x { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--pink); }
+
+  nav { padding: 20px 0; }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .logo { font-family: "Orbitron", sans-serif; font-weight: 900; text-decoration: none; letter-spacing: .1em; color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
+  .nav-links { display: flex; gap: 22px; list-style: none; font-size: .85rem; text-transform: uppercase; letter-spacing: .12em; }
+  .nav-links a { text-decoration: none; color: var(--muted); transition: color .2s, text-shadow .2s; }
+  .nav-links a:hover { color: var(--pink); text-shadow: 0 0 10px var(--pink); }
+  @media (max-width: 600px) { .nav-links { display: none; } }
+
+  .hero { padding: 80px 0 100px; text-align: center; position: relative; }
+  .hero::before { content: ""; position: absolute; left: 50%; top: 40%; width: min(700px, 90vw); height: 300px; transform: translate(-50%,-50%);
+    background: radial-gradient(closest-side, rgba(255,43,214,.22), rgba(0,240,255,.1) 60%, transparent); filter: blur(30px); z-index: -1; }
+  .status { display: inline-block; font-size: .78rem; letter-spacing: .25em; text-transform: uppercase; color: var(--cyan); border: 1px solid var(--cyan); padding: 6px 14px; margin-bottom: 28px;
+    box-shadow: 0 0 12px rgba(0,240,255,.4), inset 0 0 12px rgba(0,240,255,.2); }
+
+  /* Glitch heading */
+  .glitch { position: relative; display: inline-block; font-family: "Orbitron", sans-serif; font-weight: 900; text-transform: uppercase;
+    font-size: clamp(2.1rem, 10vw, 5.2rem); line-height: 1.05; letter-spacing: .02em; color: #fff;
+    text-shadow: 0 0 6px rgba(255,255,255,.6), 0 0 22px var(--cyan), 0 0 44px rgba(0,240,255,.5); }
+  .glitch::before, .glitch::after { content: attr(data-text); position: absolute; inset: 0; overflow: hidden; }
+  .glitch::before { color: var(--pink); left: 3px; text-shadow: -2px 0 var(--pink); clip-path: inset(0 0 60% 0); animation: g1 2.6s infinite linear alternate-reverse; }
+  .glitch::after { color: var(--cyan); left: -3px; text-shadow: 2px 0 var(--cyan); clip-path: inset(55% 0 0 0); animation: g2 3.1s infinite linear alternate-reverse; }
+  @keyframes g1 {
+    0%,86% { clip-path: inset(0 0 100% 0); transform: none; }
+    88% { clip-path: inset(10% 0 60% 0); transform: translate(-4px, -2px); }
+    91% { clip-path: inset(40% 0 30% 0); transform: translate(4px, 1px); }
+    94% { clip-path: inset(70% 0 5% 0); transform: translate(-2px, 2px); }
+    100% { clip-path: inset(0 0 100% 0); }
+  }
+  @keyframes g2 {
+    0%,80% { clip-path: inset(100% 0 0 0); transform: none; }
+    83% { clip-path: inset(60% 0 20% 0); transform: translate(4px, 2px); }
+    87% { clip-path: inset(20% 0 55% 0); transform: translate(-4px, -1px); }
+    92% { clip-path: inset(85% 0 2% 0); transform: translate(2px, 0); }
+    100% { clip-path: inset(100% 0 0 0); }
+  }
+  .tagline { margin: 26px auto 38px; max-width: 560px; font-size: clamp(1.05rem, 2.8vw, 1.25rem); color: var(--muted); }
+  .tagline b { color: var(--pink); text-shadow: 0 0 10px rgba(255,43,214,.6); font-weight: 500; }
+
+  .btn { display: inline-block; font-family: "Orbitron", sans-serif; font-weight: 800; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; text-decoration: none;
+    padding: 14px 26px; color: var(--cyan); border: 2px solid var(--cyan); background: rgba(0,240,255,.06);
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+    box-shadow: 0 0 16px rgba(0,240,255,.4), inset 0 0 16px rgba(0,240,255,.15); transition: background .2s, color .2s; }
+  .btn:hover { background: var(--cyan); color: #000; }
+  .btn.pink { color: var(--pink); border-color: var(--pink); background: rgba(255,43,214,.06); }
+  .btn.pink:hover { background: var(--pink); color: #000; }
+  .btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  section { padding: 70px 0; }
+  .h2 { font-family: "Orbitron", sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; font-size: clamp(1.4rem, 5vw, 2.2rem); margin-bottom: 28px; display: flex; align-items: center; gap: 14px; }
+  .h2 .n { color: var(--pink); text-shadow: 0 0 12px var(--pink); font-size: .7em; }
+  .h2::after { content: ""; flex: 1; height: 2px; background: linear-gradient(90deg, var(--cyan), transparent); box-shadow: 0 0 8px var(--cyan); }
+
+  .panel { background: var(--panel); border: 1px solid rgba(0,240,255,.25); padding: 28px; position: relative; }
+  .panel::before, .panel::after { content: ""; position: absolute; width: 18px; height: 18px; border: 2px solid var(--pink); }
+  .panel::before { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
+  .panel::after { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }
+  .about p { color: var(--muted); font-size: 1.08rem; max-width: 720px; }
+  .about p + p { margin-top: 12px; }
+  .about b { color: var(--cyan); font-weight: 500; }
+  .stats { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 22px; font-family: "Orbitron", sans-serif; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .bar { width: 140px; height: 6px; background: #1c1c2e; margin-top: 6px; }
+  .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--pink)); box-shadow: 0 0 10px var(--pink); }
+
+  .grid { display: grid; gap: 18px; }
+  .g4 { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .card { background: var(--panel); border: 1px solid rgba(255,255,255,.08); padding: 24px; transition: border-color .2s, box-shadow .2s, transform .2s; }
+  .card:hover { border-color: var(--cyan); box-shadow: 0 0 24px rgba(0,240,255,.25), inset 0 0 20px rgba(0,240,255,.06); transform: translateY(-3px); }
+  .card:nth-child(even):hover { border-color: var(--pink); box-shadow: 0 0 24px rgba(255,43,214,.25), inset 0 0 20px rgba(255,43,214,.06); }
+  .card .e { font-size: 1.8rem; margin-bottom: 12px; filter: drop-shadow(0 0 8px rgba(0,240,255,.6)); }
+  .card h3 { font-family: "Orbitron", sans-serif; font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 8px; }
+  .card p { color: var(--muted); font-size: .96rem; }
+  .lvl { font-family: "Orbitron", sans-serif; font-size: .7rem; letter-spacing: .2em; color: var(--pink); margin-bottom: 10px; }
+  .card a.more { display: inline-block; margin-top: 14px; color: var(--cyan); text-decoration: none; font-weight: 700; font-size: .9rem; }
+  .card a.more:hover { text-shadow: 0 0 10px var(--cyan); }
+
+  .contact { text-align: center; padding: 50px 24px; }
+  .contact p { color: var(--muted); margin: 0 auto 26px; max-width: 520px; }
+
+  .prompt-box { border: 1px solid var(--pink); box-shadow: 0 0 20px rgba(255,43,214,.2); background: #08080f; }
+  .prompt-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid rgba(255,43,214,.4); font-family: "Orbitron", sans-serif; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--pink); }
+  .copy-btn { font-family: "Orbitron", sans-serif; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; background: transparent; color: var(--cyan); border: 1px solid var(--cyan); padding: 7px 14px; cursor: pointer; transition: background .2s, color .2s; }
+  .copy-btn:hover { background: var(--cyan); color: #000; }
+  pre { padding: 20px; white-space: pre-wrap; word-wrap: break-word; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95rem; line-height: 1.7; color: var(--cyan); }
+  pre::before { content: "> "; color: var(--pink); }
+
+  footer { border-top: 1px solid rgba(0,240,255,.2); padding: 30px 0 42px; font-size: .88rem; color: var(--muted); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+  footer a { color: var(--cyan); text-decoration: none; }
+  footer a:hover { text-shadow: 0 0 10px var(--cyan); }
+  :focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .glitch::before, .glitch::after { animation: none; display: none; }
+    .card { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ribbon" role="note">
+  Style demo: <strong>Bold Neon</strong> — <a href="#prompt">see the prompt that made this ↓</a>
+  <span class="x" aria-hidden="true">✕</span>
+</div>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">A//S</a> <!-- EDIT ME: your initials or gamertag -->
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#into">Interests</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="status">● Player 1 online</div>
+    <div><h1 class="glitch" data-text="Alberto Santana">Alberto Santana</h1></div> <!-- EDIT ME: your name (change it in BOTH places) -->
+    <p class="tagline">I build things with AI — <b>and teach others to do the same.</b></p> <!-- EDIT ME: your tagline -->
+    <div class="btns">
+      <a class="btn" href="#projects">View projects</a>
+      <a class="btn pink" href="#contact">Say hi</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="about">
+    <div class="wrap">
+      <h2 class="h2"><span class="n">01</span> About me</h2>
+      <div class="panel about">
+        <!-- EDIT ME: your 2–3 sentence bio -->
+        <p>I work in <b>energy &amp; tech</b>, and I love turning ideas into real things on the internet.</p>
+        <p>AI is my co-op partner for most builds these days. I also teach this class — so get ready, you're up next.</p>
+        <div class="stats" aria-hidden="true">
+          <div>Curiosity<div class="bar"><i style="width:96%"></i></div></div>
+          <div>Building<div class="bar"><i style="width:88%"></i></div></div>
+          <div>Coffee<div class="bar"><i style="width:72%"></i></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="into">
+    <div class="wrap">
+      <h2 class="h2"><span class="n">02</span> Things I'm into</h2>
+      <!-- EDIT ME: swap in your own interests -->
+      <div class="grid g4">
+        <article class="card"><div class="e" aria-hidden="true">🤖</div><h3>Building with AI</h3><p>From "what if…" to real in an afternoon.</p></article>
+        <article class="card"><div class="e" aria-hidden="true">⚡</div><h3>Clean energy</h3><p>Powering the world — and doing it better.</p></article>
+        <article class="card"><div class="e" aria-hidden="true">🎓</div><h3>Teaching</h3><p>Nothing beats a first website going live.</p></article>
+        <article class="card"><div class="e" aria-hidden="true">🎧</div><h3>Design &amp; music</h3><p>Good design and a good playlist.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <h2 class="h2"><span class="n">03</span> Projects</h2>
+      <!-- EDIT ME: replace with your own projects -->
+      <div class="grid g3">
+        <article class="card"><p class="lvl">LVL 01 · COMPLETE</p><h3>This class website</h3><p>A step-by-step guide from zero to a live site.</p><a class="more" href="../index.html">Enter →</a></article>
+        <article class="card"><p class="lvl">LVL 02 · ACTIVE</p><h3>Personal site (you're looking at it)</h3><p>One HTML file, made with AI, hosted free.</p><a class="more" href="#top">Respawn ↑</a></article>
+        <article class="card"><p class="lvl">LVL 03 · LOCKED</p><h3>Next idea: ???</h3><p>Loading… suggestions welcome.</p><a class="more" href="#contact">Send intel →</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="panel contact">
+        <h2 class="h2" style="justify-content:center">Contact</h2>
+        <p>Questions, ideas, or a site you want to show off? Drop me a message.</p> <!-- EDIT ME -->
+        <a class="btn pink" href="#">Say hi</a> <!-- EDIT ME: add your real link -->
+      </div>
+    </div>
+  </section>
+
+  <section id="prompt">
+    <div class="wrap">
+      <h2 class="h2"><span class="n">&gt;_</span> The prompt that made this page</h2>
+      <p style="color:var(--muted);margin:-10px 0 20px">Same content as the other demos — only this style prompt changed.</p>
+      <div class="prompt-box">
+        <div class="prompt-head"><span>style_prompt.txt</span><button class="copy-btn" type="button" data-copy="prompt-text">Copy</button></div>
+        <pre id="prompt-text">Make it bold and neon, like a gaming setup: a near-black background, glowing cyan and pink accents, a futuristic display font, and a glitchy animated heading.</pre>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Made with AI · Hosted free on GitHub Pages</span>
+    <a href="../index.html">← Back to the class guide</a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pre = document.getElementById(btn.getAttribute('data-copy'));
+      var done = function () { var o = btn.textContent; btn.textContent = 'Copied!'; setTimeout(function () { btn.textContent = o; }, 1600); };
+      var fallback = function () {
+        var r = document.createRange(); r.selectNodeContents(pre);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        try { document.execCommand('copy'); done(); } catch (e) { btn.textContent = 'Press Ctrl/⌘+C'; }
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(pre.textContent).then(done, fallback);
+      else fallback();
+    });
+  });
+</script>
+</body>
+</html>

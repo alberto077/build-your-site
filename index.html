@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build Your Site</title>
+<meta name="description" content="Follow-along guide: design your own personal website with AI and publish it free on GitHub Pages. No coding experience needed.">
+<style>
+  :root {
+    --bg: #fbfaf7; --panel: #ffffff; --ink: #1b1b1f; --muted: #5d5d66; --line: #e6e3dc;
+    --accent: #5b4bff; --accent-ink: #ffffff; --soft: #f1efff; --warn: #fff6e0; --warn-line: #f0d48a;
+    --code: #f4f2ee;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121216; --panel: #1b1b21; --ink: #ececf1; --muted: #a2a2ad; --line: #2c2c35;
+      --accent: #8b7fff; --accent-ink: #0f0f14; --soft: #24213d; --warn: #2b2615; --warn-line: #6b5a23;
+      --code: #23232b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  a { color: var(--accent); }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 16px; }
+  header.top { padding: 56px 0 32px; border-bottom: 1px solid var(--line); }
+  .kicker { font-size: 14px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
+  h1 { font-size: clamp(32px, 7vw, 52px); line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.02em; }
+  h2 { font-size: 26px; margin: 0 0 12px; letter-spacing: -0.01em; }
+  h3 { font-size: 18px; margin: 20px 0 6px; }
+  .lead { font-size: 19px; color: var(--muted); margin: 0 0 20px; }
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-block; padding: 10px 16px; border-radius: 10px; text-decoration: none; font-weight: 600;
+    background: var(--accent); color: var(--accent-ink); border: 0; cursor: pointer; font-size: 15px; }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  nav.toc { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+  nav.toc ol { list-style: none; display: flex; gap: 4px; overflow-x: auto; margin: 0; padding: 10px 0; scrollbar-width: none; }
+  nav.toc a { display: block; white-space: nowrap; padding: 6px 10px; border-radius: 8px; text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 600; }
+  nav.toc a:hover { background: var(--soft); color: var(--ink); }
+  section { padding: 44px 0; border-bottom: 1px solid var(--line); }
+  .step { display: inline-block; font-size: 13px; font-weight: 700; color: var(--accent); background: var(--soft); padding: 2px 10px; border-radius: 99px; margin-bottom: 10px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .note { background: var(--warn); border: 1px solid var(--warn-line); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .table-scroll { overflow-x: auto; }
+  pre { background: var(--code); border: 1px solid var(--line); border-radius: 12px; padding: 14px; white-space: pre-wrap; word-wrap: break-word;
+    font: 14px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; margin: 0; }
+  .copybox { position: relative; margin: 10px 0 16px; }
+  .copybox .btn { position: absolute; top: 8px; right: 8px; padding: 6px 10px; font-size: 13px; }
+  .copybox pre { padding-top: 44px; }
+  code { background: var(--code); padding: 1px 6px; border-radius: 6px; font-size: .92em; }
+  ol.steps > li { margin: 0 0 10px; }
+  label { display: block; font-weight: 600; font-size: 15px; margin: 14px 0 6px; }
+  input[type=text], textarea, select { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--panel); color: var(--ink); font: inherit; font-size: 16px; }
+  textarea { min-height: 70px; resize: vertical; }
+  .styles { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+  .styles label { margin: 0; font-weight: 500; border: 1px solid var(--line); border-radius: 10px; padding: 10px; cursor: pointer; background: var(--panel); }
+  .styles input { margin-right: 6px; }
+  .checklist { list-style: none; padding: 0; margin: 0; }
+  .checklist li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px dashed var(--line); }
+  .checklist input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--accent); flex: none; }
+  .progress { height: 10px; background: var(--soft); border-radius: 99px; overflow: hidden; margin: 8px 0 4px; }
+  .progress > div { height: 100%; width: 0; background: var(--accent); transition: width .3s; }
+  dl.gloss dt { font-weight: 700; margin-top: 12px; }
+  dl.gloss dd { margin: 2px 0 0; color: var(--muted); }
+  footer { padding: 36px 0 60px; color: var(--muted); font-size: 14px; }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <p class="kicker">Live class · 2 hours · no coding needed</p>
+    <h1>Build your own website with AI</h1>
+    <p class="lead">You're the designer. AI writes the code. By the end of class your site will be live on the internet at <strong>yourname.github.io</strong>, free.</p>
+    <div class="btns">
+      <a class="btn" href="example/">See the finished example →</a>
+      <a class="btn ghost" href="styles/">Browse styles</a>
+      <a class="btn ghost" href="#builder">Jump to the prompt builder</a>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <div class="wrap">
+    <ol>
+      <li><a href="#plan">0 · Plan</a></li>
+      <li><a href="#ai">1 · How AI works</a></li>
+      <li><a href="#tool">2 · Pick a tool</a></li>
+      <li><a href="#builder">3 · Build</a></li>
+      <li><a href="#edit">4 · Remix</a></li>
+      <li><a href="#deploy">5 · Go live</a></li>
+      <li><a href="#help">Help</a></li>
+      <li><a href="#words">Words</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- Agenda + checklist -->
+  <section id="plan">
+    <span class="step">Step 0</span>
+    <h2>Today's plan</h2>
+    <div class="table-scroll">
+      <table>
+        <tr><th>Time</th><th>What we do</th></tr>
+        <tr><td>0:00</td><td>Welcome and a look at the finished example</td></tr>
+        <tr><td>0:10</td><td>How AI models actually work, and how to talk to them</td></tr>
+        <tr><td>0:25</td><td>Pick your AI tool and sign in</td></tr>
+        <tr><td>0:35</td><td>Plan your content and choose a style</td></tr>
+        <tr><td>0:50</td><td>Build your site with one big prompt, then remix it</td></tr>
+        <tr><td>1:20</td><td>5-minute break</td></tr>
+        <tr><td>1:25</td><td>Make a GitHub account and publish on GitHub Pages</td></tr>
+        <tr><td>1:45</td><td>Show and tell, plus what to try next</td></tr>
+      </table>
+    </div>
+
+    <h3>Your checklist</h3>
+    <p class="muted">Ticks are saved in this browser, so you can come back later.</p>
+    <div class="progress" aria-hidden="true"><div id="bar"></div></div>
+    <p class="muted" id="progressText" style="margin:0 0 8px">0 of 8 done</p>
+    <ul class="checklist" id="checklist">
+      <li><input type="checkbox" id="c1"><label for="c1" style="margin:0;font-weight:500">I signed in to ChatGPT, Gemini, or Claude</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2" style="margin:0;font-weight:500">I wrote my "about me" info (safe info only!)</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3" style="margin:0;font-weight:500">I picked a style</label></li>
+      <li><input type="checkbox" id="c4"><label for="c4" style="margin:0;font-weight:500">I pasted my big prompt and got a website back</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5" style="margin:0;font-weight:500">I remixed it with at least 2 edit prompts</label></li>
+      <li><input type="checkbox" id="c6"><label for="c6" style="margin:0;font-weight:500">I made a GitHub account</label></li>
+      <li><input type="checkbox" id="c7"><label for="c7" style="margin:0;font-weight:500">I uploaded my <code>index.html</code> file</label></li>
+      <li><input type="checkbox" id="c8"><label for="c8" style="margin:0;font-weight:500">My site is live at <code>username.github.io</code> 🎉</label></li>
+    </ul>
+  </section>
+
+  <!-- How AI works -->
+  <section id="ai">
+    <span class="step">Step 1</span>
+    <h2>How AI models work (the 5-minute version)</h2>
+    <div class="grid">
+      <div class="card"><h3 style="margin-top:0">🔮 It predicts</h3>An AI chatbot writes by guessing the next word over and over, based on patterns it learned from a huge amount of text, including millions of websites. That's why it's good at writing HTML.</div>
+      <div class="card"><h3 style="margin-top:0">🧠 It only knows what you tell it</h3>It doesn't know you. The more specific you are about colors, mood, sections and content, the better the result. Vague prompt, generic site.</div>
+      <div class="card"><h3 style="margin-top:0">📏 It has a memory limit</h3>Very long chats make it forget earlier details. If things get weird, start a new chat and paste in your latest code.</div>
+      <div class="card"><h3 style="margin-top:0">🎲 It's random-ish</h3>The same prompt gives a different result each time. If you don't like it, regenerate or ask for "3 different versions."</div>
+      <div class="card"><h3 style="margin-top:0">🙃 It makes mistakes</h3>AI can sound confident and still be wrong. Always open your site and check that it really works.</div>
+      <div class="card"><h3 style="margin-top:0">🎨 You're the director</h3>Think like an art director giving notes: "make the title bigger," "less purple," "feel more like a skate shop."</div>
+    </div>
+    <h3>A great prompt has 4 parts</h3>
+    <ol class="steps">
+      <li><strong>Role.</strong> "You are a web designer."</li>
+      <li><strong>Goal.</strong> "Make my personal website as one HTML file."</li>
+      <li><strong>Content.</strong> Your name, about you, your interests, your projects.</li>
+      <li><strong>Style.</strong> Colors, fonts, mood, and a reference ("like a Nintendo game menu").</li>
+    </ol>
+  </section>
+
+  <!-- Pick a tool -->
+  <section id="tool">
+    <span class="step">Step 2</span>
+    <h2>Pick your AI tool (all free)</h2>
+    <div class="note"><strong>Check the age rules.</strong> ChatGPT and Gemini allow ages 13+ with a parent's permission if you're under 18. Claude requires you to be <strong>18 or older</strong>. If you're under 18, use ChatGPT or Gemini. The prompts here work the same in all of them.</div>
+    <div class="table-scroll">
+      <table>
+        <tr><th>Tool</th><th>Good for</th><th>How to see your site</th></tr>
+        <tr><td><strong><a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini</a></strong><br><span class="muted">Google account</span></td>
+            <td>Free <strong>Canvas</strong> shows a live preview of your website as it's built.</td>
+            <td>Turn on <em>Canvas</em> in the prompt bar, then click <em>Preview</em>.</td></tr>
+        <tr><td><strong><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a></strong><br><span class="muted">free account</span></td>
+            <td>Generous free chat limits, good at following edit requests.</td>
+            <td>Copy the code into a file called <code>index.html</code> and open it (see "Save your file" below).</td></tr>
+        <tr><td><strong><a href="https://claude.ai" target="_blank" rel="noopener">Claude</a></strong><br><span class="muted">18+ only</span></td>
+            <td>Very strong at design. Free plan includes <strong>Artifacts</strong>, which show a live preview.</td>
+            <td>The preview appears next to the chat. Use the download button to get the file.</td></tr>
+      </table>
+    </div>
+    <h3>Make your free messages last</h3>
+    <ul>
+      <li>Free plans have limits. Claude's free plan, for example, resets every few hours. <strong>Don't waste messages on "hi."</strong></li>
+      <li>Put everything into <strong>one big first prompt</strong> (use the builder below).</li>
+      <li>Combine edits: "Make the title bigger AND change the green to orange AND add a footer" counts as one message, not three.</li>
+      <li>Hit a limit? Copy your latest code, switch to another tool, paste it in and say "Here's my website code, please keep going."</li>
+      <li><strong>Save your code often</strong> so nothing gets lost.</li>
+    </ul>
+  </section>
+
+  <!-- Prompt builder -->
+  <section id="builder">
+    <span class="step">Step 3</span>
+    <h2>Build your big prompt</h2>
+    <div class="note"><strong>Stay safe online.</strong> Your site will be public. Use your first name or a nickname. <strong>Never</strong> put your home address, phone number, school name, or schedule on it.</div>
+
+    <label for="f-name">Name or nickname</label>
+    <input type="text" id="f-name" placeholder="e.g. Maya R.">
+    <label for="f-tag">One-line tagline</label>
+    <input type="text" id="f-tag" placeholder="e.g. Artist, gamer, future marine biologist">
+    <label for="f-about">About you (2–3 sentences)</label>
+    <textarea id="f-about" placeholder="e.g. I'm a sophomore who loves drawing, skateboarding and fixing old bikes."></textarea>
+    <label for="f-likes">Things you're into (comma separated)</label>
+    <input type="text" id="f-likes" placeholder="e.g. anime, soccer, baking, Minecraft builds">
+    <label for="f-proj">Projects or things you're proud of (optional)</label>
+    <input type="text" id="f-proj" placeholder="e.g. my sketchbook, a robot from robotics club, my playlist">
+
+    <label>Pick a style <span class="muted" style="font-weight:400">(<a href="styles/">preview them</a>)</span></label>
+    <div class="styles" id="styles">
+      <label><input type="radio" name="style" value="modern" checked>Modern dark</label>
+      <label><input type="radio" name="style" value="minimal">Clean & minimal</label>
+      <label><input type="radio" name="style" value="retro">Retro 90s</label>
+      <label><input type="radio" name="style" value="neon">Bold neon</label>
+      <label><input type="radio" name="style" value="pastel">Soft & cozy</label>
+      <label><input type="radio" name="style" value="custom">My own idea</label>
+    </div>
+    <div id="customWrap" hidden>
+      <label for="f-custom">Describe your style</label>
+      <textarea id="f-custom" placeholder="e.g. Like a Studio Ghibli movie: watercolor greens, hand-drawn feel, floating clouds"></textarea>
+    </div>
+    <label for="f-colors">Favorite colors (optional)</label>
+    <input type="text" id="f-colors" placeholder="e.g. forest green and cream">
+
+    <h3>Your prompt <span class="muted" style="font-weight:400">(it updates as you type)</span></h3>
+    <div class="copybox">
+      <button class="btn" data-copy="out">Copy</button>
+      <pre id="out"></pre>
+    </div>
+
+    <h3>Save your file</h3>
+    <ol class="steps">
+      <li><strong>Gemini or Claude:</strong> use the download, share or "copy code" button on the preview.</li>
+      <li><strong>ChatGPT:</strong> click <em>Copy</em> on the code block.</li>
+      <li>Open a plain text editor: <strong>TextEdit</strong> on Mac (choose <em>Format → Make Plain Text</em> first) or <strong>Notepad</strong> on Windows. On a Chromebook, skip this and paste straight into GitHub in Step 5.</li>
+      <li>Paste the code and save it as <code>index.html</code>. The name must be exactly that.</li>
+      <li>Double-click the file to open your site in a browser. 🎉</li>
+    </ol>
+  </section>
+
+  <!-- Remix -->
+  <section id="edit">
+    <span class="step">Step 4</span>
+    <h2>Remix it: copy-paste edit prompts</h2>
+    <p>Send these after your first result. Combine 2–3 in one message to save your limits.</p>
+    <div class="grid">
+      <div class="card"><strong>🎨 Colors</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Change the color scheme to [colors]. Keep everything else the same.</pre></div></div>
+      <div class="card"><strong>✨ Motion</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Add subtle animations: sections fade in as I scroll and buttons gently grow when I hover.</pre></div></div>
+      <div class="card"><strong>📱 Phone check</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Make sure it looks great on a phone screen. Nothing should be cut off or need sideways scrolling.</pre></div></div>
+      <div class="card"><strong>➕ New section</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Add a new section called "[name]" with [what goes in it], styled to match the rest of the site.</pre></div></div>
+      <div class="card"><strong>🌗 Dark mode</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Add a light/dark mode toggle button in the top corner.</pre></div></div>
+      <div class="card"><strong>🎲 Surprise me</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Give my site one creative, fun detail that makes it feel unique to me, based on my interests.</pre></div></div>
+      <div class="card"><strong>🔁 3 versions</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Show me 3 very different design directions for the top of my site, then I'll pick one.</pre></div></div>
+      <div class="card"><strong>🧩 Full code</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Please give me the complete, final index.html file with all changes, not just the changed parts.</pre></div></div>
+    </div>
+    <div class="note"><strong>Pro tip:</strong> always finish with the 🧩 <em>Full code</em> prompt before you copy. AI sometimes sends only the changed part.</div>
+  </section>
+
+  <!-- Deploy -->
+  <section id="deploy">
+    <span class="step">Step 5</span>
+    <h2>Go live on GitHub Pages (free)</h2>
+    <p class="muted">GitHub is where developers store code. Its "Pages" feature turns a file into a real website. You need to be 13+ to make an account.</p>
+    <ol class="steps">
+      <li>Go to <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a> and make an account. <strong>Your username becomes your website address</strong>, so choose a good one with no real last name needed.</li>
+      <li>Click the <strong>+</strong> (top right), then <strong>New repository</strong>.</li>
+      <li>Name it exactly <code>yourusername.github.io</code> (with your real username). Set it to <strong>Public</strong> and click <strong>Create repository</strong>.</li>
+      <li>Click <strong>uploading an existing file</strong>, drag in your <code>index.html</code>, then click <strong>Commit changes</strong>.<br>
+        <span class="muted">No file? Click <em>creating a new file</em> instead, name it <code>index.html</code>, and paste your code in.</span></li>
+      <li>Go to <strong>Settings → Pages</strong>. Under "Branch," pick <code>main</code> and click <strong>Save</strong> (it may already be set).</li>
+      <li>Wait 1–2 minutes, then visit <strong>https://yourusername.github.io</strong>. You're on the internet! 🚀</li>
+    </ol>
+    <h3>Updating later</h3>
+    <p>Open your repository, click <code>index.html</code>, click the ✏️ pencil, paste your new code, then click <strong>Commit changes</strong>. The site updates in about a minute.</p>
+  </section>
+
+  <!-- Troubleshooting -->
+  <section id="help">
+    <h2>Something broke? 🛠️</h2>
+    <dl class="gloss">
+      <dt>My site shows a 404 page</dt><dd>Wait 2 more minutes. Then check the file is named exactly <code>index.html</code> (lowercase, not <code>index.html.txt</code>) and the repository is named <code>yourusername.github.io</code>.</dd>
+      <dt>My site shows the code as plain text</dt><dd>On Mac TextEdit, use <em>Format → Make Plain Text</em> before saving. Or skip the editor and paste straight into GitHub's "create new file" page.</dd>
+      <dt>Half my site disappeared after an edit</dt><dd>The AI only sent part of the code. Use the 🧩 Full code prompt.</dd>
+      <dt>Images don't show</dt><dd>AI can't add your real photos for you. Use emoji or shapes, or upload an image to your repository and ask the AI to use <code>photo.jpg</code>.</dd>
+      <dt>I hit my message limit</dt><dd>Copy your latest code, switch tools (Gemini ↔ ChatGPT), paste it in and keep going.</dd>
+      <dt>The AI is going in circles</dt><dd>Start a new chat. Paste your code with one clear request: "Here's my website. Change only X."</dd>
+    </dl>
+  </section>
+
+  <!-- Glossary -->
+  <section id="words">
+    <h2>Words you'll hear (the "tech stack")</h2>
+    <p class="muted">You don't need to write any of this today, but now you'll know what the AI is making.</p>
+    <dl class="gloss">
+      <dt>HTML</dt><dd>The <em>structure</em>: headings, paragraphs, buttons. Like the skeleton of your site.</dd>
+      <dt>CSS</dt><dd>The <em>style</em>: colors, fonts, spacing, animations. The clothes and makeup.</dd>
+      <dt>JavaScript (JS)</dt><dd>The <em>behavior</em>: things that react when you click or scroll.</dd>
+      <dt>Repository ("repo")</dt><dd>A project folder on GitHub that keeps every version of your files.</dd>
+      <dt>Commit</dt><dd>Saving a change to your repo, with a note about what changed.</dd>
+      <dt>Hosting / deploy</dt><dd>Putting your site on a computer that's always online. GitHub Pages does this free.</dd>
+      <dt>Prompt</dt><dd>The instructions you give an AI. Better prompts make better sites.</dd>
+    </dl>
+    <h3>Want to go further?</h3>
+    <ul>
+      <li>Add more pages: "Make a second page called projects.html and link to it from my nav."</li>
+      <li>Get a custom domain like <code>yourname.com</code> later. GitHub Pages supports it.</li>
+      <li>Learn what the code does: ask the AI to "explain this file to me like I'm new to coding."</li>
+      <li>Make your AI a permanent design helper: paste <a href="starter/custom-instructions.txt">these custom instructions</a> into ChatGPT or a Gemini Gem. 18+ on Claude? Upload <a href="starter/personal-website-designer.zip">this Skill</a> under <em>Settings → Capabilities → Skills</em>.</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    This guide is itself one HTML file hosted free on GitHub Pages, just like yours will be.
+    <a href="https://github.com/alberto077/build-your-site" target="_blank" rel="noopener">See how it was built →</a>
+  </div>
+</footer>
+
+<script>
+  // ---------- checklist (saved per browser) ----------
+  const boxes = [...document.querySelectorAll('#checklist input')];
+  const store = {
+    get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+  };
+  const saved = store.get('bys-check') || {};
+  boxes.forEach(b => { b.checked = !!saved[b.id]; b.addEventListener('change', updateProgress); });
+  function updateProgress() {
+    const state = {}; let n = 0;
+    boxes.forEach(b => { state[b.id] = b.checked; if (b.checked) n++; });
+    store.set('bys-check', state);
+    document.getElementById('bar').style.width = (n / boxes.length * 100) + '%';
+    document.getElementById('progressText').textContent = n + ' of ' + boxes.length + ' done' + (n === boxes.length ? ' — you did it! 🎉' : '');
+  }
+  updateProgress();
+
+  // ---------- prompt builder ----------
+  const STYLES = {
+    modern: "Make it modern and sleek: a dark background with one bright accent color, a soft glowing gradient behind my name, smooth hover effects, and sections that gently fade in as I scroll.",
+    minimal: "Make it clean and minimal: lots of white space, black text, one accent color, an elegant serif font for headings, and simple thin-line dividers. It should feel calm and professional.",
+    retro: "Make it look like a fun 1990s personal homepage: a patterned background, pixel or comic-style fonts, a scrolling banner, a fake visitor counter, chunky 3D buttons, and an 'under construction' sign. Keep the text readable.",
+    neon: "Make it bold and neon, like a gaming setup: a near-black background, glowing cyan and pink accents, a futuristic display font, and a glitchy animated heading.",
+    pastel: "Make it soft and cozy: a pastel gradient background, rounded shapes, a friendly rounded font, and cards that look like stickers placed slightly crooked."
+  };
+  const fields = ['name', 'tag', 'about', 'likes', 'proj', 'custom', 'colors'];
+  const val = id => document.getElementById('f-' + id).value.trim();
+  const draft = store.get('bys-draft') || {};
+  fields.forEach(f => { const el = document.getElementById('f-' + f); if (draft[f]) el.value = draft[f]; el.addEventListener('input', build); });
+  document.querySelectorAll('input[name=style]').forEach(r => {
+    if (draft.style === r.value) r.checked = true;
+    r.addEventListener('change', build);
+  });
+  function build() {
+    const style = document.querySelector('input[name=style]:checked').value;
+    document.getElementById('customWrap').hidden = style !== 'custom';
+    const d = { style }; fields.forEach(f => d[f] = val(f)); store.set('bys-draft', d);
+    const styleText = style === 'custom' ? (d.custom || '[describe your style here]') : STYLES[style];
+    const lines = [
+      "You are an expert web designer. Build my personal website as ONE complete index.html file with all the CSS and JavaScript inside it (no separate files, no frameworks, no build tools) so I can host it on GitHub Pages.",
+      "",
+      "MY CONTENT",
+      "- Name: " + (d.name || "[your name or nickname]"),
+      "- Tagline: " + (d.tag || "[one-line tagline]"),
+      "- About me: " + (d.about || "[2-3 sentences about you]"),
+      "- Things I'm into: " + (d.likes || "[your interests]"),
+      d.proj ? "- Projects I'm proud of: " + d.proj : "- Projects: make a 'Projects' section with 3 placeholder cards I can fill in later",
+      "",
+      "SECTIONS: a big hero with my name and tagline, About me, Things I'm into (as cards), Projects, and a simple footer.",
+      "",
+      "STYLE: " + styleText + (d.colors ? " Use these colors: " + d.colors + "." : ""),
+      "",
+      "RULES: It must look great on phones and computers. Use Google Fonts if you want, but no real photos (use emoji, shapes or gradients instead). Do NOT include any address, phone number or school name. Give me the full code in one piece."
+    ];
+    document.getElementById('out').textContent = lines.join("\n");
+  }
+  build();
+
+  // ---------- copy buttons ----------
+  function copy(text, btn) {
+    const done = () => { const t = btn.textContent; btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = t, 1400); };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else fallback();
+    function fallback() {
+      const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch {} ta.remove();
+    }
+  }
+  document.querySelector('[data-copy=out]').addEventListener('click', e => copy(document.getElementById('out').textContent, e.currentTarget));
+  document.querySelectorAll('[data-copy-text]').forEach(b => b.addEventListener('click', () => copy(b.nextElementSibling.textContent, b)));
+</script>
+</body>
+</html>
