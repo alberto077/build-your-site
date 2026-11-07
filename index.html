@@ -149,13 +149,15 @@
       <div class="card"><h3 style="margin-top:0">🙃 It makes mistakes</h3>AI can sound confident and still be wrong. Always open your site and check that it really works.</div>
       <div class="card"><h3 style="margin-top:0">🎨 You're the director</h3>Think like an art director giving notes: "make the title bigger," "less purple," "feel more like a skate shop."</div>
     </div>
-    <h3>A great prompt has 4 parts</h3>
+    <h3>What makes a great prompt</h3>
+    <p>Talk to it like a talented friend who's never met you. You don't need magic words. You need to give it the details only you know.</p>
     <ol class="steps">
-      <li><strong>Role.</strong> "You are a web designer."</li>
-      <li><strong>Goal.</strong> "Make my personal website as one HTML file."</li>
-      <li><strong>Content.</strong> Your name, about you, your interests, your projects.</li>
-      <li><strong>Style.</strong> Colors, fonts, mood, and a reference ("like a Nintendo game menu").</li>
+      <li><strong>What it's for.</strong> "My personal website, so people can see my art and what I'm into."</li>
+      <li><strong>Your real stuff.</strong> Your name, about you, your interests, your projects. Real details beat placeholders.</li>
+      <li><strong>The vibe.</strong> Colors, mood, and a reference you love ("like a Nintendo game menu," "like a cozy coffee shop").</li>
+      <li><strong>The must-haves.</strong> "One index.html file," "looks good on phones." These are rules it can't guess.</li>
     </ol>
+    <p class="muted">Then react to what you get. Your follow-up notes matter more than a perfect first prompt.</p>
   </section>
 
   <!-- Pick a tool -->
@@ -356,7 +358,7 @@
     const d = { style }; fields.forEach(f => d[f] = val(f)); store.set('bys-draft', d);
     const styleText = style === 'custom' ? (d.custom || '[describe your style here]') : STYLES[style];
     const lines = [
-      "You are an expert web designer. Build my personal website as ONE complete index.html file with all the CSS and JavaScript inside it (no separate files, no frameworks, no build tools) so I can host it on GitHub Pages.",
+      "Build my personal website as ONE complete index.html file with all the CSS and JavaScript inside it (no separate files, no frameworks, no build tools). I'm going to host it on GitHub Pages so friends and family can see it, and I want it to feel like me.",
       "",
       "MY CONTENT",
       "- Name: " + (d.name || "[your name or nickname]"),
