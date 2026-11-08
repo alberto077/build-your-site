@@ -6,7 +6,7 @@ Follow-along guide for a 2-hour class: high-school students design a personal we
 
 - `index.html` — the student guide (prompt builder, checklist, deploy steps). One plain HTML file.
 - `example/` — the instructor's example site.
-- `styles/` — the same site in 4 styles + a "pick a vibe" gallery, each showing the prompt that made it.
+- `styles/` — the same site in 5 styles (Modern is `example/`) + a "pick a vibe" gallery, each showing the prompt that made it.
 - `starter/` — a Claude Skill (zip, 18+ Claude users) and paste-at-start-of-chat instructions for any AI tool.
 
 Everything here is plain HTML — no frameworks, no build step — exactly like what students make.

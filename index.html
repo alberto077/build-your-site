@@ -43,7 +43,7 @@
   .btn { display: inline-block; padding: 10px 16px; border-radius: 10px; text-decoration: none; font-weight: 600;
     background: var(--accent); color: var(--accent-ink); border: 0; cursor: pointer; font-size: 15px; }
   .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
-  .btn:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .btn:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, select:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   nav.toc { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
   nav.toc ol { list-style: none; display: flex; gap: 4px; overflow-x: auto; margin: 0; padding: 10px 0; scrollbar-width: none; }
   nav.toc a { display: block; white-space: nowrap; padding: 6px 10px; border-radius: 8px; text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 600; }
@@ -87,6 +87,12 @@
   dl.gloss dd { margin: 2px 0 0; color: var(--muted); }
   footer { padding: 36px 0 60px; color: var(--muted); font-size: 14px; }
   .muted { color: var(--muted); }
+  #help dl.gloss dt { margin-top: 16px; }
+  #help dl.gloss dt::before { content: "▸ "; color: var(--accent); }
+  fieldset.styles-fs { border: 0; padding: 0; margin: 0; min-width: 0; }
+  fieldset.styles-fs legend { font-weight: 600; font-size: 15px; margin: 14px 0 6px; padding: 0; }
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .progress > div { transition: none; } }
 </style>
 </head>
 <body>
@@ -131,14 +137,15 @@
         <li>Keep <strong>this guide</strong>, your <strong>AI tool</strong> and <strong>GitHub</strong> in separate browser tabs. Switch with <kbd>Ctrl</kbd>+<kbd>Tab</kbd>.</li>
         <li>Shrink the Zoom window to one side of your screen and put your browser on the other side. (In Zoom, <em>View → Side-by-side</em> keeps the slides big.)</li>
         <li>Have a phone? Join Zoom on the phone and keep your laptop free for building.</li>
+        <li>Only have a phone? You can still do every step. Use desktop mode for GitHub (see Step 5) and tell your teacher.</li>
       </ul>
     </div>
     <div class="table-scroll">
       <table>
         <tr><th>Time</th><th>What we do</th></tr>
         <tr><td>0:00</td><td>Welcome and a look at the finished example</td></tr>
-        <tr><td>0:10</td><td>How AI models actually work, and how to talk to them</td></tr>
-        <tr><td>0:25</td><td>Get set up: sign in to your AI tool <strong>and</strong> start your GitHub account (the email code can take a few minutes), then watch a live demo</td></tr>
+        <tr><td>0:08</td><td>How AI models actually work, and how to talk to them</td></tr>
+        <tr><td>0:20</td><td>Get set up: sign in to your AI tool <strong>and</strong> start your GitHub account (the email code can take a few minutes), then watch a live demo</td></tr>
         <tr><td>0:35</td><td>Plan your content and choose a style</td></tr>
         <tr><td>0:50</td><td>Build your site with one big prompt, then remix it</td></tr>
         <tr><td>1:20</td><td>5-minute break</td></tr>
@@ -148,7 +155,7 @@
     </div>
 
     <h3>Your checklist</h3>
-    <p class="muted">Ticks are saved in this browser, so you can come back later.</p>
+    <p class="muted">Ticks are saved in this browser, so you can come back later. Joined late or got disconnected? Tick what you've already done, then jump to the first unticked step.</p>
     <div class="progress" aria-hidden="true"><div id="bar"></div></div>
     <p class="muted" id="progressText" style="margin:0 0 8px">0 of 9 done</p>
     <ul class="checklist" id="checklist">
@@ -257,7 +264,8 @@
     <label for="f-proj">Projects or things you're proud of (optional)</label>
     <input type="text" id="f-proj" placeholder="e.g. my sketchbook, a robot from robotics club, my playlist">
 
-    <label>Pick a style <span class="muted" style="font-weight:400">(<a href="styles/">preview them</a>)</span></label>
+    <fieldset class="styles-fs">
+    <legend>Pick a style <span class="muted" style="font-weight:400">(<a href="styles/">preview them</a>)</span></legend>
     <div class="styles" id="styles">
       <label><input type="radio" name="style" value="modern" checked>Modern dark</label>
       <label><input type="radio" name="style" value="minimal">Clean & minimal</label>
@@ -266,6 +274,7 @@
       <label><input type="radio" name="style" value="pastel">Soft & cozy</label>
       <label><input type="radio" name="style" value="custom">My own idea</label>
     </div>
+    </fieldset>
     <div id="customWrap" hidden>
       <label for="f-custom">Describe your style</label>
       <textarea id="f-custom" placeholder="e.g. Like a Studio Ghibli movie: watercolor greens, hand-drawn feel, floating clouds"></textarea>
@@ -273,11 +282,11 @@
     <label for="f-colors">Favorite colors (optional)</label>
     <input type="text" id="f-colors" placeholder="e.g. forest green and cream">
 
-    <p class="muted" style="margin-top:12px">Your answers are saved in this browser. On a shared computer, <button type="button" class="btn ghost" id="clearDraft" style="padding:4px 10px;font-size:14px">clear my answers</button> (and checklist) when you're done.</p>
+    <p class="muted" style="margin-top:12px">Your answers are saved in this browser. On a shared computer, <button type="button" class="btn ghost" id="clearDraft" style="padding:4px 10px;font-size:14px">clear my answers</button> (and checklist) when you're done. Also sign out of GitHub and your AI tool.</p>
 
     <h3>Your prompt <span class="muted" style="font-weight:400">(it updates as you type)</span></h3>
     <div class="copybox">
-      <button class="btn" data-copy="out">Copy</button>
+      <button class="btn" data-copy="out" aria-label="Copy your prompt">Copy</button>
       <pre id="out"></pre>
     </div>
 
@@ -296,14 +305,14 @@
     <h2>Remix it: copy-paste edit prompts</h2>
     <p>Send these after your first result. Combine 2–3 in one message to save your limits.</p>
     <div class="grid">
-      <div class="card"><strong>🎨 Colors</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Change the color scheme to [colors]. Keep everything else the same.</pre></div></div>
-      <div class="card"><strong>✨ Motion</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Add subtle animations: sections fade in as I scroll and buttons gently grow when I hover.</pre></div></div>
-      <div class="card"><strong>📱 Phone check</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Make sure it looks great on a phone screen. Nothing should be cut off or need sideways scrolling.</pre></div></div>
-      <div class="card"><strong>➕ New section</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Add a new section called "[name]" with [what goes in it], styled to match the rest of the site.</pre></div></div>
-      <div class="card"><strong>🌗 Dark mode</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Add a light/dark mode toggle button in the top corner.</pre></div></div>
-      <div class="card"><strong>🎲 Surprise me</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Give my site one creative, fun detail that makes it feel unique to me, based on my interests.</pre></div></div>
-      <div class="card"><strong>🔁 3 versions</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Show me 3 very different design directions for the top of my site, then I'll pick one.</pre></div></div>
-      <div class="card"><strong>🧩 Full code</strong><div class="copybox"><button class="btn" data-copy-text>Copy</button><pre>Please give me the complete, final index.html file with all changes, not just the changed parts.</pre></div></div>
+      <div class="card"><strong>🎨 Colors</strong><div class="copybox"><button class="btn" data-copy-text aria-label="Copy Colors prompt">Copy</button><pre>Change the color scheme to [colors]. Keep everything else the same.</pre></div></div>
+      <div class="card"><strong>✨ Motion</strong><div class="copybox"><button class="btn" data-copy-text aria-label="Copy Motion prompt">Copy</button><pre>Add subtle animations: sections fade in as I scroll and buttons gently grow when I hover.</pre></div></div>
+      <div class="card"><strong>📱 Phone check</strong><div class="copybox"><button class="btn" data-copy-text aria-label="Copy Phone check prompt">Copy</button><pre>Make sure it looks great on a phone screen. Nothing should be cut off or need sideways scrolling.</pre></div></div>
+      <div class="card"><strong>➕ New section</strong><div class="copybox"><button class="btn" data-copy-text aria-label="Copy New section prompt">Copy</button><pre>Add a new section called "[name]" with [what goes in it], styled to match the rest of the site.</pre></div></div>
+      <div class="card"><strong>🌗 Dark mode</strong><div class="copybox"><button class="btn" data-copy-text aria-label="Copy Dark mode prompt">Copy</button><pre>Add a light/dark mode toggle button in the top corner.</pre></div></div>
+      <div class="card"><strong>🎲 Surprise me</strong><div class="copybox"><button class="btn" data-copy-text aria-label="Copy Surprise me prompt">Copy</button><pre>Give my site one creative, fun detail that makes it feel unique to me, based on my interests.</pre></div></div>
+      <div class="card"><strong>🔁 3 versions</strong><div class="copybox"><button class="btn" data-copy-text aria-label="Copy 3 versions prompt">Copy</button><pre>Show me 3 very different design directions for the top of my site, then I'll pick one.</pre></div></div>
+      <div class="card"><strong>🧩 Full code</strong><div class="copybox"><button class="btn" data-copy-text aria-label="Copy Full code prompt">Copy</button><pre>Please give me the complete, final index.html file with all changes, not just the changed parts.</pre></div></div>
     </div>
     <div class="note"><strong>Pro tip:</strong> always finish with the 🧩 <em>Full code</em> prompt before you copy. AI sometimes sends only the changed part.</div>
   </section>
@@ -322,6 +331,7 @@
       <li>Leave it on <strong>Public</strong>. Free GitHub Pages only works on public repositories. Leave <em>Add README</em> off.</li>
       <li>Click <strong>Create repository</strong>.</li>
     </ol>
+    <p class="tip">✅ <strong>You should see:</strong> your repository name (<code>username / username.github.io</code>) at the top and a link that says <strong>creating a new file</strong>.</p>
 
     <h3 class="part">Part B · Paste in your code</h3>
     <ol class="steps">
@@ -333,9 +343,10 @@
       <li>On your new repository page, click <strong>creating a new file</strong>. If you don't see that link, click <strong>Add file → Create new file</strong>.</li>
       <li>In the name box, type exactly <code>index.html</code>. All lowercase, nothing extra.</li>
       <li>Click in the big box and paste: <kbd>Ctrl</kbd>+<kbd>V</kbd> (Windows/Chromebook) or <kbd>⌘</kbd>+<kbd>V</kbd> (Mac).</li>
-      <li><strong>Check the top and bottom.</strong> The first line should start with <code>&lt;!DOCTYPE html&gt;</code> and the last line should be <code>&lt;/html&gt;</code>. Delete any line like <code>```html</code> or <code>```</code>.</li>
+      <li><strong>Scroll to the very top and the very bottom of the pasted code.</strong> The first line should start with <code>&lt;!DOCTYPE html&gt;</code> (capital or lowercase is fine) and the last line should be <code>&lt;/html&gt;</code>. Delete any line like <code>```html</code> or <code>```</code>.</li>
       <li>Click <strong>Commit changes…</strong>, then <strong>Commit changes</strong> again in the pop-up.</li>
     </ol>
+    <p class="tip">✅ <strong>You should see:</strong> your repository's file list with <code>index.html</code> in it.</p>
 
     <h3 class="part">Part C · Turn on Pages and visit your site</h3>
     <ol class="steps">
@@ -343,10 +354,12 @@
       <li>Under <strong>Build and deployment</strong>, set Source to <strong>Deploy from a branch</strong>, Branch to <strong>main</strong> and folder to <strong>/ (root)</strong>, then click <strong>Save</strong>. It may already be set. That's fine.</li>
       <li>Wait 1–10 minutes, then visit <strong>https://username.github.io</strong> using your username. 🚀 When it's live, Settings → Pages shows "Your site is live at…" with a link.</li>
     </ol>
+    <p class="tip">✅ <strong>You should see:</strong> a box at the top of Settings → Pages that says <strong>"Your site is live at…"</strong>. (At first it may say it's being built or ready to be published. Wait a minute and refresh.) Click the link, then paste it in the Zoom chat! 🎉</p>
+    <div class="note"><strong>Finished early?</strong> Try a remix from Step 4 (see <a href="#updating">Updating later</a> to publish it) or an idea from <a href="#further">Want to go further?</a> Then help a classmate in the Zoom chat. Explaining it is the best way to learn it.</div>
 
     <details><summary>Only have a phone?</summary>It's harder, but it works. Open github.com in your phone's browser (not the app) and turn on desktop mode so every button shows: <em>Desktop site</em> in Chrome's ⋮ menu, or <em>aA → Request Desktop Website</em> in Safari. To paste, long-press inside the box and tap <em>Paste</em>. Tell your teacher and they'll help you through it.</details>
 
-    <h3>Updating later</h3>
+    <h3 id="updating">Updating later</h3>
     <p>Open your repository, click <code>index.html</code>, click the ✏️ pencil, click inside the code, select everything (<kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>A</kbd>), paste your new code, then <strong>Commit changes</strong>. If you still see the old version after a few minutes, hard refresh: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> or <kbd>⌘</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>.</p>
   </section>
 
@@ -366,6 +379,7 @@
     <dl class="gloss">
       <dt>I see <code>```html</code> or weird text at the top of my site</dt><dd>You copied the code-block markers too. Edit <code>index.html</code>, delete the <code>```html</code> line at the top and the <code>```</code> line at the bottom, and commit.</dd>
       <dt>My site is plain text with no colors, or stops halfway</dt><dd>The code got cut off. The last line must be <code>&lt;/html&gt;</code>. Ask the AI: "Give me the complete index.html again in one code block." If it stops early, ask it to "make it shorter so it fits in one reply."</dd>
+      <dt>The AI gave me several files (like index.html, style.css, script.js)</dt><dd>Reply: "Put the CSS and JavaScript inside index.html so it's ONE file, and give me the complete file." Then paste only that.</dd>
       <dt>I can't find "creating a new file"</dt><dd>Use the <strong>Add file</strong> button (top of the file list) → <strong>Create new file</strong>.</dd>
       <dt>Copy-paste isn't working</dt><dd>Click inside the box first. Use <kbd>Ctrl</kbd>+<kbd>C</kbd>/<kbd>V</kbd>, or <kbd>⌘</kbd>+<kbd>C</kbd>/<kbd>V</kbd> on Mac. In ChatGPT and Claude, use the <em>Copy</em> button on the code. In Gemini Canvas, switch to <em>Code</em>, click inside it, then select all and copy.</dd>
       <dt>My file is called <code>index.html.txt</code> or <code>Index.html</code></dt><dd>Click the file → ✏️ pencil → fix the name at the top to exactly <code>index.html</code> → Commit.</dd>
@@ -375,6 +389,7 @@
     <h3>My site isn't showing</h3>
     <dl class="gloss">
       <dt>404 "There isn't a GitHub Pages site here"</dt><dd>Give it up to 10 minutes. Then check three things: the repository is named exactly <code>username.github.io</code> in lowercase, the file is named exactly <code>index.html</code>, and Settings → Pages is set to <em>main</em> and <em>/ (root)</em>.</dd>
+      <dt>GitHub says "The repository already exists"</dt><dd>You already made it, maybe before a disconnect. Click your profile picture → <em>Repositories</em> → open <code>username.github.io</code> and go to Part B.</dd>
       <dt>I named my repository wrong</dt><dd>Repository → <strong>Settings</strong> → <em>General</em> → <em>Repository name</em> → fix it → <strong>Rename</strong>.</dd>
       <dt>Pages says I need to upgrade, or the repository is private</dt><dd>Free Pages only works on public repositories. Settings → <em>General</em> → scroll to <em>Danger Zone</em> → <strong>Change visibility</strong> → Public.</dd>
       <dt>I see my README instead of my site</dt><dd>Your <code>index.html</code> isn't at the top level, or it's misspelled. It must sit next to README, not inside a folder.</dd>
@@ -386,6 +401,7 @@
       <dt>Half my site disappeared after an edit</dt><dd>The AI only sent part of the code. Use the 🧩 Full code prompt.</dd>
       <dt>Images don't show</dt><dd>AI can't add your real photos for you. Use emoji or shapes, or upload an image to your repository (<strong>Add file → Upload files</strong>) and ask the AI to use <code>photo.jpg</code>.</dd>
       <dt>I hit my message limit</dt><dd>Copy your latest code, switch tools (Gemini ↔ ChatGPT), paste it in and say "Here's my website. Keep going."</dd>
+      <dt>The AI says it can't help</dt><dd>Say: "This is a school project: a simple personal website. Please write the HTML." Remove any real address or school name from your answers, then try again.</dd>
       <dt>The AI is going in circles</dt><dd>Start a new chat. Paste your code with one clear request: "Here's my website. Change only X."</dd>
     </dl>
   </section>
@@ -403,7 +419,7 @@
       <dt>Hosting / deploy</dt><dd>Putting your site on a computer that's always online. GitHub Pages does this free.</dd>
       <dt>Prompt</dt><dd>The instructions you give an AI. Better prompts make better sites.</dd>
     </dl>
-    <h3>Want to go further?</h3>
+    <h3 id="further">Want to go further?</h3>
     <ul>
       <li>Add more pages: "Make a second page called projects.html and link to it from my nav."</li>
       <li>Get a custom domain like <code>yourname.com</code> later. GitHub Pages supports it.</li>
@@ -439,6 +455,7 @@
   </div>
 </footer>
 
+<p id="copyStatus" class="sr-only" role="status" aria-live="polite"></p>
 <script>
   // ---------- checklist (saved per browser) ----------
   const boxes = [...document.querySelectorAll('#checklist input')];
@@ -512,13 +529,25 @@
       if (!btn.dataset.label) btn.dataset.label = btn.textContent;
       btn.textContent = 'Copied!';
       clearTimeout(btn._t); btn._t = setTimeout(() => { btn.textContent = btn.dataset.label; }, 1400);
+      const s = document.getElementById('copyStatus'); s.textContent = ''; requestAnimationFrame(() => { s.textContent = 'Copied to clipboard'; });
+    };
+    const failed = () => {
+      if (!btn.dataset.label) btn.dataset.label = btn.textContent;
+      const pre = btn.nextElementSibling, range = document.createRange();
+      range.selectNodeContents(pre); getSelection().removeAllRanges(); getSelection().addRange(range);
+      btn.textContent = 'Now press Ctrl/⌘+C';
+      const s = document.getElementById('copyStatus'); s.textContent = ''; requestAnimationFrame(() => { s.textContent = 'Text selected. Press Control or Command plus C to copy.'; });
+      clearTimeout(btn._t); btn._t = setTimeout(() => { btn.textContent = btn.dataset.label; }, 3000);
     };
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(text).then(done, fallback);
     } else fallback();
     function fallback() {
       const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); done(); } catch {} ta.remove();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch {}
+      ta.remove();
+      if (ok) done(); else failed();
     }
   }
   document.querySelector('[data-copy=out]').addEventListener('click', e => copy(document.getElementById('out').textContent, e.currentTarget));
