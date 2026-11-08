@@ -5,44 +5,60 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Build Your Site</title>
 <meta name="description" content="Follow-along guide: design your own personal website with AI and publish it free on GitHub Pages. No coding experience needed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
 <style>
+  /* Paper + ink + tangerine. Every text color passes WCAG AA (4.5:1) on its background. */
   :root {
-    --bg: #fbfaf7; --panel: #ffffff; --ink: #1b1b1f; --muted: #5d5d66; --line: #e6e3dc;
-    --accent: #5b4bff; --accent-ink: #ffffff; --soft: #f1efff; --warn: #fff6e0; --warn-line: #f0d48a;
-    --code: #f4f2ee;
+    --bg: #f6f3ec; --panel: #fffdf8; --ink: #16181d; --muted: #565b66; --line: #e2dccf;
+    --accent: #c2410c; --accent-ink: #ffffff; --soft: #fde9dd; --soft-ink: #8a2c08;
+    --mark: #ffd84a; --warn: #fff4d6; --warn-line: #e9c45a; --ok: #146c4d; --ok-soft: #e6f4ec;
+    --code: #efe9de;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #121216; --panel: #1b1b21; --ink: #ececf1; --muted: #a2a2ad; --line: #2c2c35;
-      --accent: #8b7fff; --accent-ink: #0f0f14; --soft: #24213d; --warn: #2b2615; --warn-line: #6b5a23;
-      --code: #23232b;
+      --bg: #121316; --panel: #1b1d21; --ink: #f2eee6; --muted: #a8adb7; --line: #2e3137;
+      --accent: #ff8a4c; --accent-ink: #1a0d05; --soft: #3a2316; --soft-ink: #ffc29e;
+      --mark: #ffd84a; --warn: #2c2513; --warn-line: #6e5a1f; --ok: #5fd3a4; --ok-soft: #13291f;
+      --code: #24262b;
     }
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
+  [id] { scroll-margin-top: 64px; }
   body { margin: 0; background: var(--bg); color: var(--ink);
     font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
   a { color: var(--accent); }
   .wrap { max-width: 820px; margin: 0 auto; padding: 0 16px; }
   header.top { padding: 56px 0 32px; border-bottom: 1px solid var(--line); }
   .kicker { font-size: 14px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
-  h1 { font-size: clamp(32px, 7vw, 52px); line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.02em; }
-  h2 { font-size: 26px; margin: 0 0 12px; letter-spacing: -0.01em; }
+  h1, h2 { font-family: "Space Grotesk", system-ui, sans-serif; }
+  h1 { font-size: clamp(34px, 7vw, 56px); line-height: 1.02; margin: 0 0 16px; letter-spacing: -0.03em; }
+  h1 mark { background: linear-gradient(transparent 84%, var(--mark) 84%); color: inherit; padding: 0 2px; }
+  h2 { font-size: 28px; margin: 0 0 12px; letter-spacing: -0.015em; }
   h3 { font-size: 18px; margin: 20px 0 6px; }
   .lead { font-size: 19px; color: var(--muted); margin: 0 0 20px; }
   .btns { display: flex; flex-wrap: wrap; gap: 10px; }
   .btn { display: inline-block; padding: 10px 16px; border-radius: 10px; text-decoration: none; font-weight: 600;
     background: var(--accent); color: var(--accent-ink); border: 0; cursor: pointer; font-size: 15px; }
   .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .btn:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   nav.toc { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
   nav.toc ol { list-style: none; display: flex; gap: 4px; overflow-x: auto; margin: 0; padding: 10px 0; scrollbar-width: none; }
   nav.toc a { display: block; white-space: nowrap; padding: 6px 10px; border-radius: 8px; text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 600; }
   nav.toc a:hover { background: var(--soft); color: var(--ink); }
+  nav.toc a.help { color: var(--soft-ink); background: var(--soft); }
   section { padding: 44px 0; border-bottom: 1px solid var(--line); }
-  .step { display: inline-block; font-size: 13px; font-weight: 700; color: var(--accent); background: var(--soft); padding: 2px 10px; border-radius: 99px; margin-bottom: 10px; }
+  .step { display: inline-block; font-size: 13px; font-weight: 700; color: var(--soft-ink); background: var(--soft); padding: 2px 10px; border-radius: 99px; margin-bottom: 10px; }
   .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
   .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
   .note { background: var(--warn); border: 1px solid var(--warn-line); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+  .tip { background: var(--ok-soft); border: 1px solid var(--ok); border-radius: 12px; padding: 14px 16px; margin: 16px 0; }
+  .part { font-family: "Space Grotesk", system-ui, sans-serif; font-size: 20px; margin: 28px 0 8px; }
+  details { border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; margin: 10px 0; background: var(--panel); }
+  details summary { cursor: pointer; font-weight: 700; }
+  details[open] summary { margin-bottom: 8px; }
   table { width: 100%; border-collapse: collapse; font-size: 15px; }
   th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
   .table-scroll { overflow-x: auto; }
@@ -52,6 +68,7 @@
   .copybox .btn { position: absolute; top: 8px; right: 8px; padding: 6px 10px; font-size: 13px; }
   .copybox pre { padding-top: 44px; }
   code { background: var(--code); padding: 1px 6px; border-radius: 6px; font-size: .92em; }
+  kbd { font: 600 .85em ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--panel); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 1px 6px; white-space: nowrap; }
   ol.steps > li { margin: 0 0 10px; }
   label { display: block; font-weight: 600; font-size: 15px; margin: 14px 0 6px; }
   input[type=text], textarea, select { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line);
@@ -59,7 +76,8 @@
   textarea { min-height: 70px; resize: vertical; }
   .styles { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
   .styles label { margin: 0; font-weight: 500; border: 1px solid var(--line); border-radius: 10px; padding: 10px; cursor: pointer; background: var(--panel); }
-  .styles input { margin-right: 6px; }
+  .styles input { margin-right: 6px; accent-color: var(--accent); }
+  .styles label:has(input:checked) { border-color: var(--accent); background: var(--soft); color: var(--soft-ink); font-weight: 700; }
   .checklist { list-style: none; padding: 0; margin: 0; }
   .checklist li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px dashed var(--line); }
   .checklist input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--accent); flex: none; }
@@ -76,7 +94,7 @@
 <header class="top">
   <div class="wrap">
     <p class="kicker">Live class · 2 hours · no coding needed</p>
-    <h1>Build your own website with AI</h1>
+    <h1>Build your own website <mark>with AI</mark></h1>
     <p class="lead">You're the designer. AI writes the code. By the end of class your site will be live on the internet at <strong>yourname.github.io</strong>, free.</p>
     <div class="btns">
       <a class="btn" href="example/">See the finished example →</a>
@@ -91,11 +109,11 @@
     <ol>
       <li><a href="#plan">0 · Plan</a></li>
       <li><a href="#ai">1 · How AI works</a></li>
-      <li><a href="#tool">2 · Pick a tool</a></li>
+      <li><a href="#tool">2 · Get set up</a></li>
       <li><a href="#builder">3 · Build</a></li>
       <li><a href="#edit">4 · Remix</a></li>
       <li><a href="#deploy">5 · Go live</a></li>
-      <li><a href="#help">Help</a></li>
+      <li><a href="#help" class="help">🙋 Stuck?</a></li>
       <li><a href="#words">Words</a></li>
       <li><a href="#sources">Sources</a></li>
     </ol>
@@ -108,16 +126,23 @@
   <section id="plan">
     <span class="step">Step 0</span>
     <h2>Today's plan</h2>
+    <div class="tip"><strong>🖥️ One screen? Set up like this:</strong>
+      <ul style="margin:6px 0 0;padding-left:20px">
+        <li>Keep <strong>this guide</strong>, your <strong>AI tool</strong> and <strong>GitHub</strong> in separate browser tabs. Switch with <kbd>Ctrl</kbd>+<kbd>Tab</kbd>.</li>
+        <li>Shrink the Zoom window to one side of your screen and put your browser on the other side. (In Zoom, <em>View → Side-by-side</em> keeps the slides big.)</li>
+        <li>Have a phone? Join Zoom on the phone and keep your laptop free for building.</li>
+      </ul>
+    </div>
     <div class="table-scroll">
       <table>
         <tr><th>Time</th><th>What we do</th></tr>
         <tr><td>0:00</td><td>Welcome and a look at the finished example</td></tr>
         <tr><td>0:10</td><td>How AI models actually work, and how to talk to them</td></tr>
-        <tr><td>0:25</td><td>Pick your AI tool and sign in</td></tr>
+        <tr><td>0:25</td><td>Get set up: sign in to your AI tool <strong>and</strong> start your GitHub account (the email code can take a few minutes), then watch a live demo</td></tr>
         <tr><td>0:35</td><td>Plan your content and choose a style</td></tr>
         <tr><td>0:50</td><td>Build your site with one big prompt, then remix it</td></tr>
         <tr><td>1:20</td><td>5-minute break</td></tr>
-        <tr><td>1:25</td><td>Make a GitHub account and publish on GitHub Pages</td></tr>
+        <tr><td>1:25</td><td>Publish on GitHub Pages</td></tr>
         <tr><td>1:45</td><td>Show and tell, plus what to try next</td></tr>
       </table>
     </div>
@@ -125,17 +150,19 @@
     <h3>Your checklist</h3>
     <p class="muted">Ticks are saved in this browser, so you can come back later.</p>
     <div class="progress" aria-hidden="true"><div id="bar"></div></div>
-    <p class="muted" id="progressText" style="margin:0 0 8px">0 of 8 done</p>
+    <p class="muted" id="progressText" style="margin:0 0 8px">0 of 9 done</p>
     <ul class="checklist" id="checklist">
-      <li><input type="checkbox" id="c1"><label for="c1" style="margin:0;font-weight:500">I signed in to ChatGPT, Gemini, or Claude</label></li>
-      <li><input type="checkbox" id="c2"><label for="c2" style="margin:0;font-weight:500">I wrote my "about me" info (safe info only!)</label></li>
-      <li><input type="checkbox" id="c3"><label for="c3" style="margin:0;font-weight:500">I picked a style</label></li>
-      <li><input type="checkbox" id="c4"><label for="c4" style="margin:0;font-weight:500">I pasted my big prompt and got a website back</label></li>
-      <li><input type="checkbox" id="c5"><label for="c5" style="margin:0;font-weight:500">I remixed it with at least 2 edit prompts</label></li>
-      <li><input type="checkbox" id="c6"><label for="c6" style="margin:0;font-weight:500">I made a GitHub account</label></li>
-      <li><input type="checkbox" id="c7"><label for="c7" style="margin:0;font-weight:500">I uploaded my <code>index.html</code> file</label></li>
-      <li><input type="checkbox" id="c8"><label for="c8" style="margin:0;font-weight:500">My site is live at <code>username.github.io</code> 🎉</label></li>
+      <li><input type="checkbox" id="k-ai"><label for="k-ai" style="margin:0;font-weight:500">I signed in to Gemini or ChatGPT (or Claude if I'm 18+)</label></li>
+      <li><input type="checkbox" id="k-gh"><label for="k-gh" style="margin:0;font-weight:500">I made a GitHub account and typed in the email code</label></li>
+      <li><input type="checkbox" id="k-info"><label for="k-info" style="margin:0;font-weight:500">I wrote my "about me" info (safe info only!)</label></li>
+      <li><input type="checkbox" id="k-style"><label for="k-style" style="margin:0;font-weight:500">I picked a style</label></li>
+      <li><input type="checkbox" id="k-site"><label for="k-site" style="margin:0;font-weight:500">I pasted my big prompt and got a website back</label></li>
+      <li><input type="checkbox" id="k-remix"><label for="k-remix" style="margin:0;font-weight:500">I remixed it with at least 2 edit prompts</label></li>
+      <li><input type="checkbox" id="k-repo"><label for="k-repo" style="margin:0;font-weight:500">I made my <code>username.github.io</code> repository</label></li>
+      <li><input type="checkbox" id="k-file"><label for="k-file" style="margin:0;font-weight:500">I pasted my code into <code>index.html</code> on GitHub</label></li>
+      <li><input type="checkbox" id="k-live"><label for="k-live" style="margin:0;font-weight:500">My site is live at <code>username.github.io</code> 🎉</label></li>
     </ul>
+    <p class="muted">🙋 <strong>Stuck at any point?</strong> Type the step number in the Zoom chat (like "Step 5, Part C") and check <a href="#help">Stuck?</a> for quick fixes.</p>
   </section>
 
   <!-- How AI works -->
@@ -164,8 +191,10 @@
   <!-- Pick a tool -->
   <section id="tool">
     <span class="step">Step 2</span>
-    <h2>Pick your AI tool (all free)</h2>
-    <div class="note"><strong>Check the age rules.</strong> ChatGPT and Gemini allow ages 13+ with a parent's permission if you're under 18. Claude requires you to be <strong>18 or older</strong>. If you're under 18, use ChatGPT or Gemini. The prompts here work the same in all of them.</div>
+    <h2>Get set up: two free accounts</h2>
+    <p>You need an AI tool to build your site and a GitHub account to put it online. Start both now, because GitHub emails you a code and it can take a few minutes to arrive.</p>
+    <h3 class="part">Part A · Pick your AI tool</h3>
+    <div class="note"><strong>Under 18?</strong> Use Gemini or ChatGPT (ChatGPT needs a parent's OK). <strong>18+?</strong> Claude works too. The prompts here work the same in all of them.</div>
     <div class="table-scroll">
       <table>
         <tr><th>Tool</th><th>Good for</th><th>How to see your site</th></tr>
@@ -177,10 +206,36 @@
             <td>Click <em>Preview</em> on the code block to see your site right in the chat.</td></tr>
         <tr><td><strong><a href="https://claude.ai" target="_blank" rel="noopener">Claude</a></strong><br><span class="muted">18+ only</span></td>
             <td>Very strong at design. Free plan includes <strong>Artifacts</strong>, which show a live preview.</td>
-            <td>The preview appears next to the chat. Use the download button to get the file.</td></tr>
+            <td>The preview appears next to the chat. Switch to the code view to copy it.</td></tr>
       </table>
     </div>
-    <h3>Make your free messages last</h3>
+    <details><summary>No parent around to say OK, or Gemini is turned off on your school account?</summary>
+      <ul style="margin:6px 0 0;padding-left:20px">
+        <li>If you're under 18, ChatGPT needs a parent's permission. Ask now if you can, or use Gemini instead.</li>
+        <li>School Google accounts sometimes have Gemini switched off. Try a personal Google account, or ChatGPT.</li>
+        <li>Under 13? Gemini only works if a parent turns it on with Google Family Link.</li>
+        <li>Still blocked? Follow along with the live demo, fill in the prompt builder, and build at home with a parent. Nothing in class depends on finishing today.</li>
+      </ul>
+    </details>
+
+    <h3 class="part" id="github-account">Part B · Make your GitHub account</h3>
+    <p class="muted">GitHub stores your site's code and puts it online for free. You must be 13 or older.</p>
+    <ol class="steps">
+      <li>Go to <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>.</li>
+      <li>Use an email you can open <strong>right now</strong>. School email sometimes blocks outside messages. If the code doesn't arrive, use a personal email.</li>
+      <li><strong>Pick your username carefully.</strong> It becomes your web address: <code>username.github.io</code>. Letters, numbers and single dashes only, no spaces. Choose something you'd be fine putting on a college application, and leave out your last name.</li>
+      <li>Solve the puzzle GitHub shows you, then type in the code it emails you. Check spam or "Promotions" if you don't see it.</li>
+      <li>If GitHub asks about plans or a survey, choose <strong>Free</strong> or click <strong>Skip</strong>.</li>
+      <li>If it asks you to add a passkey or two-factor login, you can usually skip it for today. Set it up later with a parent. It keeps your account safe.</li>
+    </ol>
+    <p class="muted">Can't make an account today (or under 13)? Build and preview your site anyway, save the code in a doc, and publish later.</p>
+  </section>
+
+  <!-- Prompt builder -->
+  <section id="builder">
+    <span class="step">Step 3</span>
+    <h2>Build your big prompt</h2>
+    <details><summary>💬 Make your free messages last (read this before you start)</summary>
     <ul>
       <li>Free plans have limits. Claude's free plan, for example, resets every few hours. <strong>Don't waste messages on "hi."</strong></li>
       <li>Put everything into <strong>one big first prompt</strong> (use the builder below).</li>
@@ -188,12 +243,7 @@
       <li>Hit a limit? Copy your latest code, switch to another tool, paste it in and say "Here's my website code, please keep going."</li>
       <li><strong>Save your code often</strong> so nothing gets lost.</li>
     </ul>
-  </section>
-
-  <!-- Prompt builder -->
-  <section id="builder">
-    <span class="step">Step 3</span>
-    <h2>Build your big prompt</h2>
+    </details>
     <div class="note"><strong>Stay safe online.</strong> Your site will be public. Use your first name or a nickname. <strong>Never</strong> put your home address, phone number, school name, or schedule on it.</div>
 
     <label for="f-name">Name or nickname</label>
@@ -223,20 +273,21 @@
     <label for="f-colors">Favorite colors (optional)</label>
     <input type="text" id="f-colors" placeholder="e.g. forest green and cream">
 
+    <p class="muted" style="margin-top:12px">Your answers are saved in this browser. On a shared computer, <button type="button" class="btn ghost" id="clearDraft" style="padding:4px 10px;font-size:14px">clear my answers</button> (and checklist) when you're done.</p>
+
     <h3>Your prompt <span class="muted" style="font-weight:400">(it updates as you type)</span></h3>
     <div class="copybox">
       <button class="btn" data-copy="out">Copy</button>
       <pre id="out"></pre>
     </div>
 
-    <h3>Save your file</h3>
+    <h3>Paste it and look at your site</h3>
     <ol class="steps">
-      <li><strong>Gemini or Claude:</strong> use the download, share or "copy code" button on the preview.</li>
-      <li><strong>ChatGPT:</strong> click <em>Copy</em> on the code block (use <em>Preview</em> first to check it).</li>
-      <li>Open a plain text editor: <strong>TextEdit</strong> on Mac (choose <em>Format → Make Plain Text</em> first) or <strong>Notepad</strong> on Windows. On a Chromebook, skip this and paste straight into GitHub in Step 5.</li>
-      <li>Paste the code and save it as <code>index.html</code>. The name must be exactly that.</li>
-      <li>Double-click the file to open your site in a browser. 🎉</li>
+      <li>Click <strong>Copy</strong> above, open a <strong>new chat</strong> in your AI tool, paste, and send.</li>
+      <li>Look at your site: <strong>Gemini</strong> shows it in Canvas, <strong>ChatGPT</strong> has a <em>Preview</em> button on the code block, <strong>Claude</strong> shows it next to the chat.</li>
     </ol>
+    <div class="tip"><strong>✅ You don't need to save a file on your computer.</strong> In Step 5 you'll paste your code straight into GitHub. Works on any laptop, Chromebook or school computer.</div>
+    <details><summary>Want a backup copy anyway?</summary>Paste the code into a Google Doc or email it to yourself. Making a real <code>index.html</code> file on your computer is optional. On Mac use TextEdit (<em>Format → Make Plain Text</em> first). On Windows use Notepad and pick <em>Save as type: All files</em>, or you'll end up with <code>index.html.txt</code>.</details>
   </section>
 
   <!-- Remix -->
@@ -261,29 +312,80 @@
   <section id="deploy">
     <span class="step">Step 5</span>
     <h2>Go live on GitHub Pages (free)</h2>
-    <p class="muted">GitHub is where developers store code. Its "Pages" feature turns a file into a real website. You need to be 13+ to make an account.</p>
+    <p class="muted">No GitHub account yet? Do <a href="#github-account">Step 2, Part B</a> first.</p>
+
+    <h3 class="part">Part A · Make your repository</h3>
+    <p class="muted">A <strong>repository</strong> ("repo") is just a project folder on GitHub. Yours will hold one file: <code>index.html</code>.</p>
     <ol class="steps">
-      <li>Go to <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a> and make an account. <strong>Your username becomes your website address</strong>, so choose a good one with no real last name needed.</li>
-      <li>Click the <strong>+</strong> (top right), then <strong>New repository</strong>.</li>
-      <li>Name it exactly <code>yourusername.github.io</code> (your username, all lowercase). Set it to <strong>Public</strong> and click <strong>Create repository</strong>.</li>
-      <li>Click <strong>uploading an existing file</strong>, drag in your <code>index.html</code>, then click <strong>Commit changes</strong>.<br>
-        <span class="muted">No file? Click <em>creating a new file</em> instead, name it <code>index.html</code>, and paste your code in.</span></li>
-      <li>Go to <strong>Settings → Pages</strong>. Under "Branch," pick <code>main</code> and click <strong>Save</strong> (it may already be set).</li>
-      <li>Wait a few minutes (it can take up to 10), then visit <strong>https://yourusername.github.io</strong>. You're on the internet! 🚀</li>
+      <li>On github.com, click the <strong>+</strong> in the top right, then <strong>New repository</strong>.</li>
+      <li>For <strong>Repository name</strong>, type your username followed by <code>.github.io</code>. Example: if you're <code>maya-draws</code>, type <code>maya-draws.github.io</code>. Use <strong>all lowercase</strong>.</li>
+      <li>Leave it on <strong>Public</strong>. Free GitHub Pages only works on public repositories. Leave <em>Add README</em> off.</li>
+      <li>Click <strong>Create repository</strong>.</li>
     </ol>
+
+    <h3 class="part">Part B · Paste in your code</h3>
+    <ol class="steps">
+      <li>Copy your <strong>latest full code</strong> from your AI tool. Not sure it's complete? Send the 🧩 Full code prompt from Step 4 first.
+        <ul>
+          <li><strong>Gemini:</strong> in Canvas, switch from <em>Preview</em> to <em>Code</em>, click inside the code, press <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>A</kbd>, then <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>C</kbd>.</li>
+          <li><strong>ChatGPT or Claude:</strong> click the <em>Copy</em> button on the code.</li>
+        </ul></li>
+      <li>On your new repository page, click <strong>creating a new file</strong>. If you don't see that link, click <strong>Add file → Create new file</strong>.</li>
+      <li>In the name box, type exactly <code>index.html</code>. All lowercase, nothing extra.</li>
+      <li>Click in the big box and paste: <kbd>Ctrl</kbd>+<kbd>V</kbd> (Windows/Chromebook) or <kbd>⌘</kbd>+<kbd>V</kbd> (Mac).</li>
+      <li><strong>Check the top and bottom.</strong> The first line should start with <code>&lt;!DOCTYPE html&gt;</code> and the last line should be <code>&lt;/html&gt;</code>. Delete any line like <code>```html</code> or <code>```</code>.</li>
+      <li>Click <strong>Commit changes…</strong>, then <strong>Commit changes</strong> again in the pop-up.</li>
+    </ol>
+
+    <h3 class="part">Part C · Turn on Pages and visit your site</h3>
+    <ol class="steps">
+      <li>Click <strong>Settings</strong> (top of your repository; on a small screen it may be under the <strong>⋯</strong> menu), then <strong>Pages</strong> in the left menu.</li>
+      <li>Under <strong>Build and deployment</strong>, set Source to <strong>Deploy from a branch</strong>, Branch to <strong>main</strong> and folder to <strong>/ (root)</strong>, then click <strong>Save</strong>. It may already be set. That's fine.</li>
+      <li>Wait 1–10 minutes, then visit <strong>https://username.github.io</strong> using your username. 🚀 When it's live, Settings → Pages shows "Your site is live at…" with a link.</li>
+    </ol>
+
+    <details><summary>Only have a phone?</summary>It's harder, but it works. Open github.com in your phone's browser (not the app) and turn on desktop mode so every button shows: <em>Desktop site</em> in Chrome's ⋮ menu, or <em>aA → Request Desktop Website</em> in Safari. To paste, long-press inside the box and tap <em>Paste</em>. Tell your teacher and they'll help you through it.</details>
+
     <h3>Updating later</h3>
-    <p>Open your repository, click <code>index.html</code>, click the ✏️ pencil, paste your new code, then click <strong>Commit changes</strong>. The site updates within a few minutes.</p>
+    <p>Open your repository, click <code>index.html</code>, click the ✏️ pencil, click inside the code, select everything (<kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>A</kbd>), paste your new code, then <strong>Commit changes</strong>. If you still see the old version after a few minutes, hard refresh: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> or <kbd>⌘</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>.</p>
   </section>
 
   <!-- Troubleshooting -->
   <section id="help">
-    <h2>Something broke? 🛠️</h2>
+    <h2>Stuck? Quick fixes 🛠️</h2>
+    <p class="muted">Find what you're seeing, then try the fix. Still stuck? Type it in the Zoom chat.</p>
+
+    <h3>GitHub account</h3>
     <dl class="gloss">
-      <dt>My site shows a 404 page</dt><dd>Give it up to 10 minutes. Then check the file is named exactly <code>index.html</code> (lowercase, not <code>index.html.txt</code>) and the repository is named <code>yourusername.github.io</code> in all lowercase.</dd>
-      <dt>My site shows the code as plain text</dt><dd>On Mac TextEdit, use <em>Format → Make Plain Text</em> before saving. Or skip the editor and paste straight into GitHub's "create new file" page.</dd>
+      <dt>The email code never came</dt><dd>Wait two minutes, check spam and "Promotions," then click <em>Resend</em>. School emails sometimes block it: start over with a personal email.</dd>
+      <dt>My username is taken, or has a typo</dt><dd>Add a word or number (<code>maya-draws-art</code>). Made a typo already? Change it under <em>Settings → Account → Change username</em>, then rename your repository to match.</dd>
+      <dt>GitHub or my AI tool is blocked on this network</dt><dd>Some school networks block these sites. Tell your teacher. You can keep working from home or another network.</dd>
+    </dl>
+
+    <h3>Getting your code into GitHub</h3>
+    <dl class="gloss">
+      <dt>I see <code>```html</code> or weird text at the top of my site</dt><dd>You copied the code-block markers too. Edit <code>index.html</code>, delete the <code>```html</code> line at the top and the <code>```</code> line at the bottom, and commit.</dd>
+      <dt>My site is plain text with no colors, or stops halfway</dt><dd>The code got cut off. The last line must be <code>&lt;/html&gt;</code>. Ask the AI: "Give me the complete index.html again in one code block." If it stops early, ask it to "make it shorter so it fits in one reply."</dd>
+      <dt>I can't find "creating a new file"</dt><dd>Use the <strong>Add file</strong> button (top of the file list) → <strong>Create new file</strong>.</dd>
+      <dt>Copy-paste isn't working</dt><dd>Click inside the box first. Use <kbd>Ctrl</kbd>+<kbd>C</kbd>/<kbd>V</kbd>, or <kbd>⌘</kbd>+<kbd>C</kbd>/<kbd>V</kbd> on Mac. In ChatGPT and Claude, use the <em>Copy</em> button on the code. In Gemini Canvas, switch to <em>Code</em>, click inside it, then select all and copy.</dd>
+      <dt>My file is called <code>index.html.txt</code> or <code>Index.html</code></dt><dd>Click the file → ✏️ pencil → fix the name at the top to exactly <code>index.html</code> → Commit.</dd>
+      <dt>Emoji or symbols show up as weird characters</dt><dd>Ask the AI: "Add &lt;meta charset="utf-8"&gt; inside the &lt;head&gt;."</dd>
+    </dl>
+
+    <h3>My site isn't showing</h3>
+    <dl class="gloss">
+      <dt>404 "There isn't a GitHub Pages site here"</dt><dd>Give it up to 10 minutes. Then check three things: the repository is named exactly <code>username.github.io</code> in lowercase, the file is named exactly <code>index.html</code>, and Settings → Pages is set to <em>main</em> and <em>/ (root)</em>.</dd>
+      <dt>I named my repository wrong</dt><dd>Repository → <strong>Settings</strong> → <em>General</em> → <em>Repository name</em> → fix it → <strong>Rename</strong>.</dd>
+      <dt>Pages says I need to upgrade, or the repository is private</dt><dd>Free Pages only works on public repositories. Settings → <em>General</em> → scroll to <em>Danger Zone</em> → <strong>Change visibility</strong> → Public.</dd>
+      <dt>I see my README instead of my site</dt><dd>Your <code>index.html</code> isn't at the top level, or it's misspelled. It must sit next to README, not inside a folder.</dd>
+      <dt>I made changes but still see the old site</dt><dd>Wait a couple of minutes, then hard refresh (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> / <kbd>⌘</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>) or open it in a private window.</dd>
+    </dl>
+
+    <h3>The AI</h3>
+    <dl class="gloss">
       <dt>Half my site disappeared after an edit</dt><dd>The AI only sent part of the code. Use the 🧩 Full code prompt.</dd>
-      <dt>Images don't show</dt><dd>AI can't add your real photos for you. Use emoji or shapes, or upload an image to your repository and ask the AI to use <code>photo.jpg</code>.</dd>
-      <dt>I hit my message limit</dt><dd>Copy your latest code, switch tools (Gemini ↔ ChatGPT), paste it in and keep going.</dd>
+      <dt>Images don't show</dt><dd>AI can't add your real photos for you. Use emoji or shapes, or upload an image to your repository (<strong>Add file → Upload files</strong>) and ask the AI to use <code>photo.jpg</code>.</dd>
+      <dt>I hit my message limit</dt><dd>Copy your latest code, switch tools (Gemini ↔ ChatGPT), paste it in and say "Here's my website. Keep going."</dd>
       <dt>The AI is going in circles</dt><dd>Start a new chat. Paste your code with one clear request: "Here's my website. Change only X."</dd>
     </dl>
   </section>
@@ -306,7 +408,7 @@
       <li>Add more pages: "Make a second page called projects.html and link to it from my nav."</li>
       <li>Get a custom domain like <code>yourname.com</code> later. GitHub Pages supports it.</li>
       <li>Learn what the code does: ask the AI to "explain this file to me like I'm new to coding."</li>
-      <li>Make your AI a permanent design helper: paste <a href="starter/custom-instructions.txt">these custom instructions</a> into a ChatGPT Project's instructions (or a Gemini Gem, if your account still has Gems; Google is replacing them with 18+ "skills"). 18+ on Claude? Turn on code execution in <em>Settings → Capabilities</em>, then upload <a href="starter/personal-website-designer.zip">this Skill</a> under <em>Customize → Skills → + Create skill → Upload a skill</em>.</li>
+      <li>Want the AI to follow your website rules? Paste <a href="starter/custom-instructions.txt">these instructions</a> at the start of any new chat. (18+ and using Claude? There's also a <a href="starter/personal-website-designer.zip">Claude Skill</a> you can upload.)</li>
     </ul>
   </section>
 
@@ -316,8 +418,8 @@
     <p class="muted">AI tools change every few months. Everything below was checked on <strong>November 7, 2026</strong>. If something looks different when you try it, the tool probably changed. Ask the AI itself or check its help pages.</p>
     <dl class="gloss">
       <dt>Age rules</dt>
-      <dd>Claude is 18+; ChatGPT and Gemini allow 13+ with a parent's permission: <a href="https://www.banthebots.org/explainers/ai-chatbot-age-requirements" target="_blank" rel="noopener">AI chatbot age requirements</a>. GitHub is 13+: <a href="https://docs.github.com/en/site-policy/github-terms/github-terms-of-service" target="_blank" rel="noopener">GitHub Terms of Service</a>.</dd>
-      <dt>Free plan limits and features</dt>
+      <dd>Official terms: <a href="https://www.anthropic.com/legal/consumer-terms" target="_blank" rel="noopener">Anthropic Consumer Terms</a> (Claude, 18+), <a href="https://support.google.com/gemini/answer/13278668" target="_blank" rel="noopener">Gemini Apps Help: what you need to sign in</a> (13+; under 13 with Family Link: <a href="https://support.google.com/gemini/answer/16109150" target="_blank" rel="noopener">parent guide</a>), <a href="https://openai.com/policies/terms-of-use/" target="_blank" rel="noopener">OpenAI Terms of Use</a> (ChatGPT, 13+, parent permission under 18), <a href="https://docs.github.com/en/site-policy/github-terms/github-terms-of-service" target="_blank" rel="noopener">GitHub Terms of Service</a> (13+).</dd>
+      <dt>Free plan limits and features <span class="muted" style="font-weight:400">(secondary sources; these change often)</span></dt>
       <dd>Claude Free (Artifacts, Skills, a usage limit that resets every 5 hours): <a href="https://www.datastudios.org/post/claude-free-limits-updated-usage-restrictions-message-caps-and-file-upload-rules" target="_blank" rel="noopener">Claude Free limits</a>. ChatGPT Canvas replaced by code blocks with Preview (May 2026): <a href="https://www.ai-toolbox.co/chatgpt-management-and-productivity/how-to-use-chatgpt-canvas-guide-2026" target="_blank" rel="noopener">What replaced ChatGPT Canvas</a>. ChatGPT free usage: <a href="https://www.ai-toolbox.co/chatgpt-management-and-productivity/chatgpt-limits-messages-tokens-rate-2026" target="_blank" rel="noopener">ChatGPT limits 2026</a>. Gemini Canvas and Gems free; Gems being replaced by 18+ skills: <a href="https://www.eesel.ai/blog/gemini-skills" target="_blank" rel="noopener">Gemini skills and Gems</a>.</dd>
       <dt>Claude Skills</dt>
       <dd><a href="https://support.claude.com/en/articles/12512180-use-skills-in-claude" target="_blank" rel="noopener">Use skills in Claude</a> (Anthropic help center).</dd>
@@ -344,12 +446,12 @@
     get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
   };
-  const saved = store.get('bys-check') || {};
+  const saved = store.get('bys-check-v2') || {};
   boxes.forEach(b => { b.checked = !!saved[b.id]; b.addEventListener('change', updateProgress); });
   function updateProgress() {
     const state = {}; let n = 0;
     boxes.forEach(b => { state[b.id] = b.checked; if (b.checked) n++; });
-    store.set('bys-check', state);
+    store.set('bys-check-v2', state);
     document.getElementById('bar').style.width = (n / boxes.length * 100) + '%';
     document.getElementById('progressText').textContent = n + ' of ' + boxes.length + ' done' + (n === boxes.length ? ' — you did it! 🎉' : '');
   }
@@ -390,15 +492,27 @@
       "",
       "STYLE: " + styleText + (d.colors ? " Use these colors: " + d.colors + "." : ""),
       "",
-      "RULES: It must look great on phones and computers. Use Google Fonts if you want, but no real photos (use emoji, shapes or gradients instead). Do NOT include any address, phone number or school name. Give me the full code in one piece."
+      "RULES: It must look great on phones and computers. Use Google Fonts if you want, but no real photos (use emoji, shapes or gradients instead). Do NOT include any address, phone number or school name. Give me the complete file in ONE code block, starting with <!DOCTYPE html> and ending with </html>, and keep it short enough to fit in one reply."
     ];
     document.getElementById('out').textContent = lines.join("\n");
   }
   build();
+  document.getElementById('clearDraft').addEventListener('click', () => {
+    try { localStorage.removeItem('bys-draft'); localStorage.removeItem('bys-check-v2'); } catch {}
+    boxes.forEach(b => { b.checked = false; });
+    updateProgress();
+    fields.forEach(f => { document.getElementById('f-' + f).value = ''; });
+    document.querySelector('input[name=style][value=modern]').checked = true;
+    build();
+  });
 
   // ---------- copy buttons ----------
   function copy(text, btn) {
-    const done = () => { const t = btn.textContent; btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = t, 1400); };
+    const done = () => {
+      if (!btn.dataset.label) btn.dataset.label = btn.textContent;
+      btn.textContent = 'Copied!';
+      clearTimeout(btn._t); btn._t = setTimeout(() => { btn.textContent = btn.dataset.label; }, 1400);
+    };
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(text).then(done, fallback);
     } else fallback();
