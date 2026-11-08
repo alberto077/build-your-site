@@ -91,7 +91,7 @@
   #help dl.gloss dt::before { content: "▸ "; color: var(--accent); }
   fieldset.styles-fs { border: 0; padding: 0; margin: 0; min-width: 0; }
   fieldset.styles-fs legend { font-weight: 600; font-size: 15px; margin: 14px 0 6px; padding: 0; }
-  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .progress > div { transition: none; } }
 </style>
 </head>
@@ -331,7 +331,7 @@
       <li>Leave it on <strong>Public</strong>. Free GitHub Pages only works on public repositories. Leave <em>Add README</em> off.</li>
       <li>Click <strong>Create repository</strong>.</li>
     </ol>
-    <p class="tip">✅ <strong>You should see:</strong> a page titled <code>username.github.io</code> with a link that says <strong>creating a new file</strong>.</p>
+    <p class="tip">✅ <strong>You should see:</strong> your repository name (<code>username / username.github.io</code>) at the top and a link that says <strong>creating a new file</strong>.</p>
 
     <h3 class="part">Part B · Paste in your code</h3>
     <ol class="steps">
@@ -354,7 +354,7 @@
       <li>Under <strong>Build and deployment</strong>, set Source to <strong>Deploy from a branch</strong>, Branch to <strong>main</strong> and folder to <strong>/ (root)</strong>, then click <strong>Save</strong>. It may already be set. That's fine.</li>
       <li>Wait 1–10 minutes, then visit <strong>https://username.github.io</strong> using your username. 🚀 When it's live, Settings → Pages shows "Your site is live at…" with a link.</li>
     </ol>
-    <p class="tip">✅ <strong>You should see:</strong> a box at the top of Settings → Pages that says <strong>"Your site is live at…"</strong>. Click the link, then paste it in the Zoom chat! 🎉</p>
+    <p class="tip">✅ <strong>You should see:</strong> a box at the top of Settings → Pages that says <strong>"Your site is live at…"</strong>. (At first it may say it's being built or ready to be published. Wait a minute and refresh.) Click the link, then paste it in the Zoom chat! 🎉</p>
     <div class="note"><strong>Finished early?</strong> Try a remix from Step 4 (see <a href="#updating">Updating later</a> to publish it) or an idea from <a href="#further">Want to go further?</a> Then help a classmate in the Zoom chat. Explaining it is the best way to learn it.</div>
 
     <details><summary>Only have a phone?</summary>It's harder, but it works. Open github.com in your phone's browser (not the app) and turn on desktop mode so every button shows: <em>Desktop site</em> in Chrome's ⋮ menu, or <em>aA → Request Desktop Website</em> in Safari. To paste, long-press inside the box and tap <em>Paste</em>. Tell your teacher and they'll help you through it.</details>
@@ -529,14 +529,14 @@
       if (!btn.dataset.label) btn.dataset.label = btn.textContent;
       btn.textContent = 'Copied!';
       clearTimeout(btn._t); btn._t = setTimeout(() => { btn.textContent = btn.dataset.label; }, 1400);
-      document.getElementById('copyStatus').textContent = 'Copied to clipboard';
+      const s = document.getElementById('copyStatus'); s.textContent = ''; requestAnimationFrame(() => { s.textContent = 'Copied to clipboard'; });
     };
     const failed = () => {
       if (!btn.dataset.label) btn.dataset.label = btn.textContent;
       const pre = btn.nextElementSibling, range = document.createRange();
       range.selectNodeContents(pre); getSelection().removeAllRanges(); getSelection().addRange(range);
       btn.textContent = 'Now press Ctrl/⌘+C';
-      document.getElementById('copyStatus').textContent = 'Text selected. Press Control or Command plus C to copy.';
+      const s = document.getElementById('copyStatus'); s.textContent = ''; requestAnimationFrame(() => { s.textContent = 'Text selected. Press Control or Command plus C to copy.'; });
       clearTimeout(btn._t); btn._t = setTimeout(() => { btn.textContent = btn.dataset.label; }, 3000);
     };
     if (navigator.clipboard && window.isSecureContext) {
